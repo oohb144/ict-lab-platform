@@ -373,14 +373,23 @@ body {
 }
 
 /* ===== Table ===== */
+/* NOTE: actual table rendering is handled by the custom `table` component  */
+/* in markdownComponents (Tutorials.jsx), which wraps the table in a div.   */
+/* The styles below are fallback / non-react-markdown usage.                */
+.markdown-body .md-table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--md-tb-border);
+    box-shadow: var(--md-shadow);
+    margin: 14px 0;
+}
 .markdown-body table {
     width: 100%;
-    border-collapse: collapse;
-    margin: 14px 0;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: var(--md-shadow);
+    /* separate + spacing-0 lets border-radius work on the wrapper */
+    border-collapse: separate;
+    border-spacing: 0;
     font-size: 0.9em;
+    margin: 0;
 }
 .markdown-body table tr {
     background: #f8fafc;
@@ -395,15 +404,41 @@ body {
 }
 .markdown-body table th,
 .markdown-body table td {
-    border: 1px solid var(--md-tb-border);
+    border-bottom: 1px solid var(--md-tb-border);
+    border-right: 1px solid var(--md-tb-border);
     padding: 7px 13px;
     text-align: left;
     line-height: 1.5;
+}
+.markdown-body table th:first-child,
+.markdown-body table td:first-child {
+    border-left: none;
+}
+.markdown-body table th:last-child,
+.markdown-body table td:last-child {
+    border-right: none;
+}
+.markdown-body table tr:last-child td {
+    border-bottom: none;
 }
 .markdown-body table th {
     background: var(--md-tb-head-bg);
     color: var(--md-theme);
     font-weight: 700;
+    border-bottom: 2px solid var(--md-tb-border);
+}
+/* first/last header corners */
+.markdown-body table thead tr:first-child th:first-child {
+    border-top-left-radius: 7px;
+}
+.markdown-body table thead tr:first-child th:last-child {
+    border-top-right-radius: 7px;
+}
+.markdown-body table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 7px;
+}
+.markdown-body table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 7px;
 }
 
 /* ===== Unordered Lists ===== */

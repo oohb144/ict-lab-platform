@@ -1,4 +1,4 @@
-import config from '../config.js';
+import config from "../config.js";
 
 /**
  * 上传文件到 Gitee 仓库（带重试）
@@ -9,13 +9,15 @@ import config from '../config.js';
 export async function uploadToGitee(buffer, originalName) {
   const { giteeOwner, giteeRepo, giteeToken } = config;
   if (!giteeOwner || !giteeRepo || !giteeToken) {
-    throw new Error('Gitee 配置缺失，请检查 GITEE_OWNER / GITEE_REPO / GITEE_TOKEN');
+    throw new Error(
+      "Gitee 配置缺失，请检查 GITEE_OWNER / GITEE_REPO / GITEE_TOKEN",
+    );
   }
 
-  const ext = originalName.split('.').pop();
+  const ext = originalName.split(".").pop();
   const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
   const path = `uploads/${fileName}`;
-  const base64Content = buffer.toString('base64');
+  const base64Content = buffer.toString("base64");
   const fileSizeMB = (buffer.length / 1024 / 1024).toFixed(2);
 
   console.log(`[Gitee] 开始上传: ${originalName} (${fileSizeMB}MB) -> ${path}`);
@@ -36,8 +38,8 @@ export async function uploadToGitee(buffer, originalName) {
       const timeout = setTimeout(() => controller.abort(), 60000);
 
       const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body,
         signal: controller.signal,
       });
@@ -45,8 +47,9 @@ export async function uploadToGitee(buffer, originalName) {
 
       if (res.ok) {
         const data = await res.json();
-        const rawUrl = data.content?.download_url
-          || `https://gitee.com/${giteeOwner}/${giteeRepo}/raw/master/${path}`;
+        const rawUrl =
+          data.content?.download_url ||
+          `https://gitee.com/${giteeOwner}/${giteeRepo}/raw/master/${path}`;
         console.log(`[Gitee] 上传成功: ${rawUrl}`);
         return rawUrl;
       }
@@ -61,16 +64,67 @@ export async function uploadToGitee(buffer, originalName) {
         throw new Error(`Gitee 上传失败(${res.status}): ${errText}`);
       }
     } catch (err) {
-      if (err.name === 'AbortError') {
+      if (err.name === "AbortError") {
         console.error(`[Gitee] 第 ${attempt} 次超时`);
-        if (attempt === maxRetries) throw new Error('Gitee 上传超时，请稍后重试');
-      } else if (err.message.startsWith('Gitee 上传失败(4')) {
+        if (attempt === maxRetries)
+          throw new Error("Gitee 上传超时，请稍后重试");
+      } else if (err.message.startsWith("Gitee 上传失败(4")) {
         throw err;
       } else {
         console.error(`[Gitee] 第 ${attempt} 次异常: ${err.message}`);
         if (attempt === maxRetries) throw err;
       }
     }
-    await new Promise(r => setTimeout(r, attempt * 2000));
+    await new Promise((r) => setTimeout(r, attempt * 2000));
+  }
+}
+
+/**
+ * 从 Gitee 仓库中删除文件
+ * @param {string} rawUrl - Gitee raw 文件链接
+ */
+export async function deleteFromGitee(rawUrl) {
+  if (!rawUrl || !rawUrl.includes("gitee.com")) return;
+  const { giteeOwner, giteeRepo, giteeToken } = config;
+  if (!giteeOwner || !giteeRepo || !giteeToken) return;
+
+  // 从 URL 解析文件路径：https://gitee.com/{owner}/{repo}/raw/{branch}/{path}
+  const match = rawUrl.match(/gitee\.com\/[^/]+\/[^/]+\/raw\/[^/]+\/(.+)/);
+  if (!match) return;
+  const filePath = decodeURIComponent(match[1].split("?")[0]);
+
+  try {
+    // 先获取文件 SHA
+    const getUrl = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/${filePath}?access_token=${giteeToken}`;
+    const getRes = await fetch(getUrl);
+    if (!getRes.ok) {
+      console.warn(
+        `[Gitee Delete] 获取文件信息失败(${getRes.status}): ${filePath}`,
+      );
+      return;
+    }
+    const fileData = await getRes.json();
+    const sha = fileData.sha;
+    if (!sha) return;
+
+    // 删除文件
+    const deleteUrl = `https://gitee.com/api/v5/repos/${giteeOwner}/${giteeRepo}/contents/${filePath}`;
+    const deleteRes = await fetch(deleteUrl, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        access_token: giteeToken,
+        message: `delete ${filePath}`,
+        sha,
+      }),
+    });
+    if (deleteRes.ok) {
+      console.log(`[Gitee Delete] 已删除: ${filePath}`);
+    } else {
+      const errText = await deleteRes.text();
+      console.warn(`[Gitee Delete] 删除失败(${deleteRes.status}): ${errText}`);
+    }
+  } catch (err) {
+    console.warn(`[Gitee Delete] 异常: ${err.message}`);
   }
 }

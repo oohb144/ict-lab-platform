@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -24,6 +24,7 @@ model User {
   replies   Reply[]
   resources Resource[]
   tutorials Tutorial[]
+  checkins  CheckIn[]
 
   @@map("users")
 }
@@ -97,12 +98,13 @@ model Resource {
 }
 
 model SiteContent {
-  id            Int    @id @default(1)
-  introTitle    String @default("") @map("intro_title")
-  introSubtitle String @default("") @map("intro_subtitle")
-  introBox1     String @default("") @map("intro_box1")
-  introBox2     String @default("") @map("intro_box2")
-  introRules    String @default("") @map("intro_rules")
+  id               Int     @id @default(1)
+  introTitle       String  @default("") @map("intro_title")
+  introSubtitle    String  @default("") @map("intro_subtitle")
+  introBox1        String  @default("") @map("intro_box1")
+  introBox2        String  @default("") @map("intro_box2")
+  introRules       String  @default("") @map("intro_rules")
+  seatUserEditable Boolean @default(true) @map("seat_user_editable")
 
   @@map("site_content")
 }
@@ -117,4 +119,26 @@ model Tutorial {
   author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
   @@map("tutorials")
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  title     String   @default("")
+  content   String   @default("")
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("notifications")
+}
+
+model CheckIn {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  date      String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@map("checkins")
 }
