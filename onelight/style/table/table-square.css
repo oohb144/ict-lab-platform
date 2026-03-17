@@ -1,0 +1,67 @@
+:root {
+    --tb-hover-bg: color-mix(in srgb, var(--theme-color) 20%, transparent);
+    --border-color: var(--theme-color);
+    --b: 2px solid var(--border-color);
+}
+
+figure.md-table-fig.table-figure {
+    box-shadow: var(--box-shadow);
+}
+
+.ty-table-edit {
+    border-radius: var(--radius-xsmall);
+    background-color: var(--mica-bg) !important;
+    backdrop-filter: var(--mica-blur);
+    border: var(--mica-border);
+    box-shadow: var(--box-shadow);
+    transition: var(--mica-transition);
+    z-index: 999;
+}
+
+.ty-delete:before {
+    color: var(--main-red);
+}
+
+.popover.bottom.md-table-resize-popover {
+    width: fit-content;
+}
+
+#write td.md-reset {
+    border: 0;
+    padding: 0 !important;
+}
+
+.md-grid-board a {
+    border: 0;
+}
+
+tr.md-reset {
+    background: var(--theme-light-color) !important;
+}
+
+td.md-reset.md-grid-ext>a {
+    margin: 0;
+    padding: 0;
+}
+
+#write table tr {
+    border: var(--b);
+}
+
+#write table tr td,
+#write table tr th {
+    border-left: var(--b);
+    font-size: .9rem;
+    line-height: 1.5;
+    padding: 5px 10px;
+}
+
+#write table tr th {
+    background-color: var(--tb-hover-bg);
+    color: var(--theme-color);
+    font-weight: 700
+}
+
+#write table tr td:hover {
+    background: var(--tb-hover-bg);
+}

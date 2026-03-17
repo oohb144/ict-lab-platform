@@ -1,0 +1,112 @@
+/* ---------------->> 标题 <<---------------- */
+#write h1,
+#write h2,
+#write h3,
+#write h4,
+#write h5,
+#write h6 {
+    margin: .72em 0;
+    padding: 0;
+    position: relative;
+    font-weight: lighter;
+}
+
+
+/* 公共伪元素样式 */
+#write h2:hover:before,
+#write h3:hover:before,
+#write h4:hover:before,
+#write h5:hover:before,
+#write h6:hover:before {
+    bottom: 0;
+    line-height: 25px;
+    padding: 0 1px 0 1px;
+    color: var(--item-color);
+    font-size: .9rem;
+    position: absolute;
+    right: calc(100% + 3px);
+}
+
+#write h4:hover:before {
+    color: var(--theme-color);
+}
+
+#write h2:hover:before {
+    content: "H2";
+}
+
+#write h3:hover:before {
+    content: "H3";
+}
+
+#write h4:hover:before {
+    content: "H4";
+}
+
+#write h5:hover:before {
+    content: "H5";
+}
+
+#write h6:hover:before {
+    content: "H6";
+}
+
+
+#write h1 {
+    color: var(--theme-color);
+    font-size: 2.5rem;
+    text-align: center;
+    padding-bottom: 0.3em;
+}
+
+#write h2 {
+    color: var(--theme-color);
+    font-size: 2rem;
+    margin: 1em 0;
+    border-bottom: 2px solid var(--theme-color);
+    padding-bottom: 0.2em;
+}
+
+
+#write h3 {
+    color: var(--theme-color);
+    font-size: 1.7rem;
+    position: relative;
+    border-left: 4px solid var(--theme-color);
+    padding-left: 8px;
+    margin: 20px 0;
+}
+
+
+
+
+#write h4 {
+    font-size: 1.5rem;
+    width: fit-content;
+    color: white;
+    line-height: 1.6;
+    margin: 20px 0;
+    padding: 1px 12.5px;
+    position: relative;
+    background: linear-gradient(to right, var(--theme-color), var(--main-green));
+    border-radius: var(--radius-small);
+    background-size: 200% 100%;
+    background-position: 0% 0%;
+    transition: background-position 0.1s ease-in-out, color 0.3s ease-in-out;
+}
+
+#write h4:hover {
+    background-position: -100% -100%;
+}
+
+#write h5 {
+    font-size: 1.3rem;
+    width: fit-content;
+    color: var(--main-yellow);
+}
+
+#write h6 {
+    font-size: 1.2rem;
+    width: fit-content;
+    color: var(--main-green);
+}

@@ -1,0 +1,11 @@
+kbd {
+    background-color: #3d404e;
+    color: #c3c3c3;
+    box-shadow: unset;
+    border-color: #393939;
+}
+
+kbd::before {
+    box-shadow: inset 0px -4px 0px #2a2e37,
+        0px -4px 0px var(--bg-color);
+}

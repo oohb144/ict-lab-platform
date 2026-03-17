@@ -1,0 +1,98 @@
+/* ---------------->> 引用块 <<---------------- */
+#write blockquote {
+    background: var(--gradient-color);
+    border-bottom-right-radius: 10px;
+    border-left: 5px solid var(--border-color);
+    border-top-right-radius: 10px;
+    box-shadow: var(--box-shadow);
+    color: rgb(from var(--text-color) r g b / 0.8);
+    font-size: .9em;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 10px 10px 20px;
+    transition: var(--bg-transition)
+}
+
+#write blockquote:hover {
+    transition: var(--bg-transition);
+    background: var(--bg-color);
+    box-shadow: var(--box-shadow-large);
+}
+
+#write blockquote p {
+    line-height: 26px
+}
+
+
+/* ---------------->> 警告框样式 <<---------------- */
+/* ---------------->> 提示 <<---------------- */
+.md-alert {
+    --border: solid 1px var(--border-color);
+    background: var(--gradient-color);
+    border-radius: 0;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: var(--box-shadow);
+    transition: var(--bg-transition);
+
+    strong>span.md-plain {
+        color: var(--alert-theme-color);
+    }
+}
+
+/* ---------------->> 不同类型的警告框颜色 <<---------------- */
+.md-alert-tip {
+    --alert-theme-color: #1f883d;
+}
+
+.md-alert-note {
+    --alert-theme-color: #0969da;
+}
+
+.md-alert-important {
+    --alert-theme-color: #8250df;
+}
+
+.md-alert-caution {
+    --alert-theme-color: #cf222e;
+}
+
+.md-alert-warning {
+    --alert-theme-color: #faad14;
+}
+
+/* ---------------->> 边框 <<---------------- */
+.md-alert {
+    border: var(--border);
+    border-left: 5px solid var(--alert-theme-color);
+    border-left-color: var(--alert-theme-color) !important;
+
+    &:hover {
+        background: var(--theme-light-color) !important;
+        box-shadow: var(--box-shadow-large);
+    }
+
+}
+
+
+/* ---------------->> 警告框下段落悬浮样式重置 <<---------------- */
+blockquote p:hover,
+.md-alert p:hover {
+    background: transparent !important;
+    box-shadow: unset !important;
+}
+
+/* ---------------->> 警告框内文本颜色 <<---------------- */
+div.md-alert span[md-inline="plain"].md-plain,
+span.md-alert-text-container {
+    color: var(--alert-theme-color);
+}
+
+/* ---------------->> 警告框内列表样式 <<---------------- */
+.md-alert li.md-list-item::before,
+.md-alert ul li::before,
+.md-alert ol li::before {
+    background: var(--alert-theme-color) !important;
+}

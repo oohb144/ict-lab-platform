@@ -1,0 +1,26 @@
+kbd {
+    position: relative;
+    outline: none;
+    background-color: #f4f5f6;
+    border-radius: 8px;
+    transform: scale(1.1);
+    transition: 0.3s ease-in-out;
+    cursor: default;
+    color: #666;
+    display: inline-flex;
+    margin: 0 10px;
+}
+
+kbd::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 8px;
+    box-shadow: inset 0px -4px 0px #dddddd,
+        0px -4px 0px var(--bg-color);
+    transition: 0.3s ease-in-out;
+    z-index: -1;
+}

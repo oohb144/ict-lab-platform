@@ -3,32 +3,520 @@
 @tailwind utilities;
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+        Arial, sans-serif;
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
 
-/* Markdown 渲染样式 */
-.markdown-body h1 { font-size: 1.8em; font-weight: 700; margin: 24px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; color: #1e293b; }
-.markdown-body h2 { font-size: 1.5em; font-weight: 700; margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #f1f5f9; color: #1e293b; }
-.markdown-body h3 { font-size: 1.25em; font-weight: 600; margin: 16px 0 8px; color: #334155; }
-.markdown-body h4 { font-size: 1.1em; font-weight: 600; margin: 12px 0 6px; color: #334155; }
-.markdown-body p { margin: 8px 0; line-height: 1.8; }
-.markdown-body ul, .markdown-body ol { padding-left: 24px; margin: 8px 0; }
-.markdown-body li { margin: 4px 0; line-height: 1.8; }
-.markdown-body blockquote { margin: 12px 0; padding: 8px 16px; border-left: 4px solid #4096ff; background: #f0f7ff; border-radius: 0 8px 8px 0; color: #475569; }
-.markdown-body code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #e11d48; font-family: 'Consolas', 'Monaco', monospace; }
-.markdown-body pre { background: #1e293b; color: #e2e8f0; padding: 16px; border-radius: 8px; overflow-x: auto; margin: 12px 0; }
-.markdown-body pre code { background: none; color: inherit; padding: 0; font-size: 0.85em; }
-.markdown-body table { width: 100%; border-collapse: collapse; margin: 12px 0; }
-.markdown-body th, .markdown-body td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
-.markdown-body th { background: #f8fafc; font-weight: 600; }
-.markdown-body tr:nth-child(even) { background: #f8fafc; }
-.markdown-body img { max-width: 100%; border-radius: 8px; margin: 12px 0; }
-.markdown-body a { color: #4096ff; text-decoration: none; }
-.markdown-body a:hover { text-decoration: underline; }
-.markdown-body hr { border: none; border-top: 1px solid #e2e8f0; margin: 20px 0; }
+/* ================================================================
+   OneLight Web Theme — adapted from Typora onelight theme
+   All #write selectors translated to .markdown-body
+   ================================================================ */
+
+/* ===== Base / Variables ===== */
+.markdown-body {
+    --md-theme: #5b8af5;
+    --md-green: #27ae60;
+    --md-red: #e74c3c;
+    --md-purple: #9b59b6;
+    --md-yellow: #f39c12;
+    --md-text: #334155;
+    --md-bg: #ffffff;
+    --md-code-dark: #1a1e2e;
+    --md-code-text: #cdd6f4;
+    --md-inline-bg: #f1f5f9;
+    --md-border: #e2e8f0;
+    --md-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    --md-shadow-lg: 0 4px 18px rgba(0, 0, 0, 0.13);
+    --md-tb-head-bg: rgba(91, 138, 245, 0.12);
+    --md-tb-hover-bg: rgba(91, 138, 245, 0.07);
+    --md-tb-border: #e2e8f0;
+
+    font-family:
+        "JetBrains Mono", "Cascadia Code", "PingFang SC", "Microsoft YaHei",
+        sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--md-text);
+    word-break: break-word;
+    counter-reset: heading-h2 heading-h3 heading-h4 heading-h5 heading-h6;
+}
+
+/* ===== Keyframe Animations ===== */
+@keyframes md-gradient-move {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes md-gradient-flow {
+    0% {
+        background-position: 200% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes md-flow-left {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+@keyframes md-h5-flow {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 300% 50%;
+    }
+}
+
+@keyframes md-h2-underline-grow {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* ===== Headings — shared ===== */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+    font-weight: 600;
+    margin-top: 1.2em;
+    margin-bottom: 0.5em;
+    line-height: 1.4;
+}
+
+/* ─── H1 : centered, blue-purple rainbow gradient text ─── */
+.markdown-body h1 {
+    font-size: 2rem;
+    text-align: center;
+    padding: 6px 0 0.3em;
+    background: linear-gradient(to right, #7ac9ff, #d6a9ff, #7ac9ff);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: md-gradient-move 4s linear infinite;
+}
+
+/* ─── H2 : warm pink-orange gradient text + animated underline ─── */
+.markdown-body h2 {
+    font-size: 1.6rem;
+    padding-bottom: 0.25em;
+    position: relative;
+    background: linear-gradient(to right, #ff8da1, #ffbe70, #ff8da1);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: md-gradient-move 6s linear infinite;
+}
+
+.markdown-body h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #ff8da1, #ffbe70, #ff8da1);
+    background-size: 200% 100%;
+    border-radius: 2px;
+    animation: md-gradient-move 6s linear infinite;
+    transform-origin: left center;
+}
+
+/* ─── H3 : pastel gradient pill background ─── */
+.markdown-body h3 {
+    font-size: 1.3rem;
+    display: inline-block;
+    width: fit-content;
+    padding: 3px 16px;
+    border-radius: 5px;
+    background: linear-gradient(
+        to right,
+        #a9e5fc,
+        #dce6d3,
+        #fccbb8,
+        #fccbb8,
+        #dce6d3,
+        #a9e5fc
+    );
+    background-size: 200% 100%;
+    animation: md-gradient-flow 8s linear infinite;
+    color: #4a3660;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+    border: none !important;
+}
+
+/* ─── H4 : colorful rainbow gradient text ─── */
+.markdown-body h4 {
+    font-size: 1.15rem;
+    width: fit-content;
+    background: linear-gradient(
+        135deg,
+        #ff8c66 0%,
+        #dddf3b 25%,
+        #f74d66 50%,
+        #62aaf1 75%,
+        #ff8c66 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: md-flow-left 6s ease-in-out infinite reverse;
+    padding: 0 2px;
+}
+
+/* ─── H5 : teal-pink gradient text ─── */
+.markdown-body h5 {
+    font-size: 1.05rem;
+    width: fit-content;
+    background: linear-gradient(
+        135deg,
+        #fc6c85 0%,
+        #58b6a0 25%,
+        #3a8e7a 50%,
+        #ffc300 75%,
+        #fc6c85 100%
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: md-h5-flow 6s ease-in-out infinite reverse;
+    padding: 0 2px;
+}
+
+/* ─── H6 : cyan-pink rainbow gradient text ─── */
+.markdown-body h6 {
+    font-size: 1rem;
+    width: fit-content;
+    background: linear-gradient(
+        135deg,
+        #ffbe70 0%,
+        #ff8da1 15%,
+        #71d8e1 30%,
+        #27cae7 45%,
+        #71e1d8 60%,
+        #5895db 75%,
+        #ffbe70 100%
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: md-h5-flow 6s ease-in-out infinite reverse;
+    padding: 0 2px;
+}
+
+/* ===== Paragraph ===== */
+.markdown-body p {
+    margin: 8px 0;
+    line-height: 1.85;
+}
+
+/* ===== Links ===== */
+.markdown-body a {
+    color: var(--md-theme);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.markdown-body a:hover {
+    text-decoration: underline;
+    color: #3b6fd4;
+}
+
+/* ===== Strong & Em ===== */
+.markdown-body strong {
+    font-weight: 700;
+    color: #c0392b;
+}
+.markdown-body em {
+    font-style: italic;
+    color: var(--md-purple);
+}
+.markdown-body del {
+    color: #94a3b8;
+    text-decoration-color: #94a3b8;
+}
+
+/* ===== Inline Code ===== */
+.markdown-body :not(pre) > code {
+    background: var(--md-inline-bg);
+    color: #eb4c37;
+    font-family: "JetBrains Mono", "Cascadia Code", monospace;
+    font-size: 0.88em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    word-break: break-all;
+}
+
+/* ===== Fenced Code Block ===== */
+.markdown-body pre {
+    background: var(--md-code-dark);
+    color: var(--md-code-text);
+    font-family: "JetBrains Mono", "Cascadia Code", monospace;
+    font-size: 0.875em;
+    line-height: 1.65;
+    padding: 1em 1.25em;
+    border-radius: 10px;
+    overflow-x: auto;
+    margin: 14px 0;
+    box-shadow: var(--md-shadow);
+    position: relative;
+}
+.markdown-body pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+    border-radius: 0;
+}
+
+/* syntax-highlight token colours (rehype-highlight / highlight.js) */
+.markdown-body .hljs-keyword,
+.markdown-body .hljs-selector-tag {
+    color: #c792ea;
+}
+.markdown-body .hljs-string,
+.markdown-body .hljs-attr {
+    color: #c3e88d;
+}
+.markdown-body .hljs-number,
+.markdown-body .hljs-literal {
+    color: #f78c6c;
+}
+.markdown-body .hljs-comment {
+    color: #676e95;
+    font-style: italic;
+}
+.markdown-body .hljs-built_in,
+.markdown-body .hljs-type {
+    color: #ffcb6b;
+}
+.markdown-body .hljs-title,
+.markdown-body .hljs-name {
+    color: #82aaff;
+}
+.markdown-body .hljs-variable,
+.markdown-body .hljs-params {
+    color: #89ddff;
+}
+.markdown-body .hljs-meta {
+    color: #ff5370;
+}
+.markdown-body .hljs-symbol,
+.markdown-body .hljs-bullet {
+    color: #ff5370;
+}
+
+/* ===== Blockquote ===== */
+.markdown-body blockquote {
+    background: linear-gradient(135deg, #f8fafc 0%, #f0f4ff 100%);
+    border-left: 5px solid var(--md-theme);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: var(--md-shadow);
+    color: rgba(51, 65, 85, 0.88);
+    font-size: 0.94em;
+    margin: 16px 0;
+    padding: 10px 16px 10px 20px;
+    transition: box-shadow 0.25s;
+}
+.markdown-body blockquote:hover {
+    box-shadow: var(--md-shadow-lg);
+}
+.markdown-body blockquote p {
+    line-height: 1.75;
+    margin: 5px 0;
+}
+
+/* ===== Table ===== */
+.markdown-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--md-shadow);
+    font-size: 0.9em;
+}
+.markdown-body table tr {
+    background: #f8fafc;
+    border: none;
+    transition: background 0.18s;
+}
+.markdown-body table tr:nth-child(2n) {
+    background: #ffffff;
+}
+.markdown-body table tr:hover {
+    background: var(--md-tb-hover-bg);
+}
+.markdown-body table th,
+.markdown-body table td {
+    border: 1px solid var(--md-tb-border);
+    padding: 7px 13px;
+    text-align: left;
+    line-height: 1.5;
+}
+.markdown-body table th {
+    background: var(--md-tb-head-bg);
+    color: var(--md-theme);
+    font-weight: 700;
+}
+
+/* ===== Unordered Lists ===== */
+.markdown-body ul {
+    list-style: none;
+    padding-left: 1.6em;
+    margin: 8px 0;
+}
+.markdown-body ul > li {
+    position: relative;
+    margin: 5px 0;
+    line-height: 1.85;
+}
+/* Level-1 bullet: filled blue circle */
+.markdown-body ul > li::before {
+    content: "";
+    position: absolute;
+    left: -1.15em;
+    top: 0.62em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--md-theme);
+    transition:
+        transform 0.35s ease,
+        background 0.25s;
+}
+.markdown-body ul > li:hover::before {
+    transform: rotate(360deg);
+    background: var(--md-red);
+}
+/* Level-2 bullet: rotated square */
+.markdown-body ul > li > ul > li::before {
+    border-radius: 2px;
+    transform: rotate(45deg);
+    background: var(--md-theme);
+}
+.markdown-body ul > li > ul > li:hover::before {
+    transform: rotate(225deg);
+    background: var(--md-red);
+}
+/* Level-3 bullet: hollow square */
+.markdown-body ul > li > ul > li > ul > li::before {
+    background: transparent;
+    border: 2px solid var(--md-theme);
+    border-radius: 2px;
+}
+
+/* ===== Ordered Lists ===== */
+.markdown-body ol {
+    padding-left: 2em;
+    margin: 8px 0;
+}
+.markdown-body ol > li {
+    margin: 5px 0;
+    line-height: 1.85;
+}
+.markdown-body ol > li::marker {
+    color: var(--md-theme);
+    font-weight: 700;
+}
+
+/* ===== Task / Checkbox Lists ===== */
+.markdown-body input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--md-theme);
+    border-radius: 3px;
+    vertical-align: -2px;
+    margin-right: 6px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s;
+}
+.markdown-body input[type="checkbox"]:checked {
+    background: var(--md-theme);
+    border-color: var(--md-theme);
+}
+.markdown-body input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 40%;
+    height: 70%;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -60%) rotate(45deg);
+}
+
+/* ===== Images ===== */
+.markdown-body img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 14px 0;
+    display: block;
+    box-shadow: var(--md-shadow);
+}
+
+/* ===== Horizontal Rule ===== */
+.markdown-body hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(
+        to right,
+        transparent,
+        var(--md-border),
+        transparent
+    );
+    margin: 22px 0;
+}
+
+/* ===== Footnotes ===== */
+.markdown-body .footnotes {
+    font-size: 0.85em;
+    color: #64748b;
+    border-top: 1px solid var(--md-border);
+    padding-top: 12px;
+    margin-top: 24px;
+}

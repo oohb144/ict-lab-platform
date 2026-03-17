@@ -1,0 +1,402 @@
+#write {
+    letter-spacing: 0;
+    text-align: left
+}
+
+/* ---------------->> 大纲参考线 <<---------------- */
+.outline-h1::after,
+.outline-h2::after,
+.outline-h3::after,
+.outline-h4::after,
+.outline-h5::after,
+.outline-h6::after {
+    content: "";
+    height: calc(100% - 25px);
+    width: 1.3px;
+    background: transparent;
+    position: absolute;
+    top: 25px;
+}
+
+li.outline-item-wrapper.outline-h1.outline-item-open:has(> ul.outline-children > li)::after {
+    background: var(--outline-color);
+    left: 6.5px;
+}
+
+li.outline-item-wrapper.outline-h2.outline-item-open:has(> ul.outline-children > li)::after {
+    background: var(--outline-color);
+    left: 20px;
+}
+
+li.outline-item-wrapper.outline-h3.outline-item-open:has(> ul.outline-children > li)::after {
+    background: var(--outline-color);
+    left: 34px;
+}
+
+li.outline-item-wrapper.outline-h4.outline-item-open:has(> ul.outline-children > li)::after {
+    background: var(--outline-color);
+    left: 48.5px;
+}
+
+li.outline-item-wrapper.outline-h5.outline-item-open:has(> ul.outline-children > li)::after {
+    background: var(--outline-color);
+    left: 62.5px;
+}
+
+/* ---------------->> 折叠箭头 <<---------------- */
+.outline-expander:before {
+    font-weight: bold;
+}
+
+
+
+.cm-s-inner .cm-link,
+.cm-s-inner.cm-link {
+    color: var(--theme-color);
+}
+
+.theme-preview-div:hover {
+    border-color: var(--main-green);
+}
+
+.theme-preview-div.active>i::before {
+    color: var(--main-green);
+}
+
+#theme-preview-grid {
+    max-width: 100%;
+}
+
+/* ---------------->> 快速打开搜索框高亮结果 <<---------------- */
+.typora-quick-open-item-title>b {
+    border-radius: var(--radius-xsmall);
+    padding: 2px;
+    color: red;
+    background: yellow;
+}
+
+.typora-quick-open-item.active {
+    background: var(--item-bg-color-blue);
+}
+
+/* ---------------->> 左侧文档列表 <<---------------- */
+.file-list-item.active,
+.file-list-item.active:hover {
+    margin: 0 5px;
+    border-radius: 10px;
+    background: rgb(from var(--theme-color) r g b / 0.2);
+    border: 2px solid var(--theme-color);
+}
+
+.file-list-item:hover {
+    background: var(--theme-light-color);
+}
+
+/* ---------------->> 滚动条 <<---------------- */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar:hover {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: var(--radius-small);
+    background: rgba(0, 0, 0, .1);
+    width: 10px
+}
+
+/* ---------------->> 一体化-返回按钮 <<---------------- */
+span.megamenu-menu-header-title-back[data-localize=Back]:hover {
+    color: var(--theme-color);
+}
+
+/* ---------------->> 一体化-主题预览卡片 <<---------------- */
+.theme-preview-div {
+    cursor: pointer;
+}
+
+
+/* ---------------->> 快速打开搜索框 <<---------------- */
+#typora-quick-open {
+    height: 80vh;
+    width: 40vw;
+    border-radius: var(--radius-xsmall);
+    padding-right: 0;
+}
+
+div#typora-quick-open-input {
+    padding: 0 5px;
+}
+
+.typora-quick-open-list {
+    max-height: 95%;
+}
+
+.typora-quick-open-item:hover {
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+    color: var(--theme-color);
+    background: var(--theme-light-color);
+}
+
+.ty-quick-open-category-title {
+    color: var(--theme-color);
+}
+
+/* ---------------->> 一体化模式的侧边菜单 <<---------------- */
+ul#megamenu-menu-list {
+    height: 90%;
+    background: transparent;
+}
+
+/* ---------------->> 一体化模式最近打开文件列表 <<---------------- */
+.megamenu-menu-panel table {
+    font-weight: unset;
+}
+
+/* ---------------->> 一体化模式左侧菜单 <<---------------- */
+.megamenu-menu-header {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background: #2e2e2e;
+    border-bottom: unset;
+    height: 90px;
+    position: relative;
+    text-align: center
+}
+
+.ion-android-arrow-back:before {
+    content: "<-";
+    font-family: cascadia code, fira code, var(--main-font-family)
+}
+
+a#megamenu-back-btn:hover {
+    color: var(--theme-color)
+}
+
+#megamenu-back-btn {
+    border: 0;
+    font-size: 25px
+}
+
+/* ---------------->> 一体化模式-已保存 <<---------------- */
+a#m-saved:hover {
+    cursor: unset;
+}
+
+a#megamenu-clear-recet-documents:hover {
+    background: transparent;
+}
+
+.megamenu-opened header {
+    background-image: unset;
+}
+
+/* ---------------->> 一体化模式-打开 <<---------------- */
+.megamenu-menu-panel:not(:first-of-type) {
+    margin-top: 10px;
+}
+
+/* ---------------->> 一体化模式-打开-最近打开文件列表 <<---------------- */
+ul.dropdown-menu[aria-labelledby="recent-file-panel-action-btn"] {
+    border-radius: var(--radius-small);
+}
+
+/* ---------------->> 一体化菜单界面背景图片 <<---------------- */
+div#megamenu-section-open {
+    background-color: transparent;
+    background-image: url('../img/mutou.gif');
+    background-position: 100% 0%;
+    background-repeat: no-repeat;
+    background-size: 150px auto;
+    transition: background-image .5s ease-in-out, background-size .5s ease-in-out;
+}
+
+/* ---------------->> 主界面背景图片 <<---------------- */
+content {
+    background-color: transparent;
+    background-image: url('../img/mutou2.gif');
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    background-size: 150px auto;
+    transition: background-image .5s ease-in-out, background-size .5s ease-in-out
+}
+
+.context-menu.dropdown-menu>.active>a,
+.context-menu.dropdown-menu>li>a:hover,
+.menu-style-btn.active {
+    cursor: pointer;
+    background: var(--item-bg-color-blue);
+    color: unset;
+}
+
+.menu-item-container a.menu-style-btn.active,
+.menu-item-container a.menu-style-btn:hover {
+    background-color: var(--item-bg-color-blue) !important;
+    border: 2px solid var(--theme-color);
+}
+
+.context-menu {
+    padding-bottom: 0;
+}
+
+.ty-bold:before {
+    font-weight: bold;
+}
+
+/* ---------------->> 右键菜单 <<---------------- */
+.dropdown-menu,
+.menu-item-container a.menu-style-btn {
+    border-radius: var(--radius-small);
+    background-color: var(--mica-bg) !important;
+    backdrop-filter: var(--mica-blur);
+    -webkit-backdrop-filter: var(--mica-blur);
+    border: var(--trans-border);
+    box-shadow: var(--box-shadow);
+    transition: var(--mica-transition);
+}
+
+.dropdown-menu .divider {
+    opacity: 0;
+}
+
+li.has-extra-menu {
+    border: var(--trans-border);
+}
+
+li.has-extra-menu.active {
+    border-color: var(--theme-color);
+    border-radius: var(--radius-xsmall);
+}
+
+li[data-key],
+li[data-group="dev-tool"] {
+    border: var(--trans-border);
+}
+
+li[data-key]:hover,
+li[data-group="dev-tool"]:hover {
+    border-color: var(--theme-color);
+    border-radius: var(--radius-xsmall);
+}
+
+/* ---------------->> 任务列表按钮 <<---------------- */
+.ty-check:before {
+    color: rgb(0, 187, 0);
+}
+
+/* ---------------->> 删除按钮 <<---------------- */
+.ty-delete1:before {
+    color: var(--main-red);
+}
+
+/* ---------------->> 代码按钮 <<---------------- */
+.ty-code:before {
+    color: var(--main-purple);
+}
+
+/* ---------------->> 链接按钮 <<---------------- */
+.ty-link-icon:before {
+    color: var(--theme-color);
+}
+
+/* ---------------->> 左侧文件树 <<---------------- */
+.file-tree-node.active>.file-node-background {
+    background-color: var(--theme-light-color);
+}
+
+
+.file-library-node:not(.file-node-root):focus>.file-node-content {
+    outline: unset;
+}
+
+.file-node-content {
+    cursor: pointer;
+}
+
+.fa-file-text-o:before {
+    content: '📄';
+}
+
+/* ---------------->> 显示/隐藏侧边栏 <<---------------- */
+#outline-btn:hover {
+    color: var(--theme-color)
+}
+
+/* ---------------->> 底部状态栏 <<---------------- */
+#footer-word-count:hover,
+.ty-show-spell-check #footer-spell-check,
+.ty-show-word-count #footer-word-count {
+    background: var(--bg-color);
+    color: var(--theme-color);
+}
+
+.footer-item:hover,
+.sidebar-footer-item:hover {
+    background: var(--bg-color);
+    opacity: 1;
+    color: var(--theme-color);
+}
+
+/* ---------------->> 搜索框 <<---------------- */
+
+#md-searchpanel .btn label {
+    color: var(--theme-color);
+    font-weight: bold;
+}
+
+div#md-searchpanel {
+    background: var(--bg-color);
+}
+
+#md-searchpanel .btn {
+    text-align: center !important;
+    border-radius: 10px;
+    background: rgb(from var(--bg-color) r g b / 0.4);
+    margin: 0 2px;
+}
+
+#md-searchpanel .btn:hover {
+    background: var(--item-bg-color-blue);
+}
+
+#md-searchpanel .input-group-addon.close-btn {
+    background: transparent;
+}
+
+.long-btn {
+    border-width: 2px;
+    border-radius: var(--radius-small);
+}
+
+.long-btn:last-of-type {
+    min-width: 300px;
+    width: fit-content;
+}
+
+
+#recent-file-panel-action-btn.btn:hover {
+    color: unset;
+}
+
+/* 主题窗口版本标签 */
+.theme-preview-div {
+    position: relative;
+}
+
+.theme-preview-div[data-theme="onelight.css"]::after,
+.theme-preview-div[data-theme="onelight-dark.css"]::after {
+    content: '';
+    position: absolute;
+    right: 0px;
+    bottom: -3px;
+    width: 90px;
+    height: 20px;
+    background-image: url("https://img.shields.io/github/v/release/caolib/typora-onelight-theme?labelColor=grey&color=red");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 10;
+    pointer-events: none;
+}

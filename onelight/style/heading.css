@@ -1,0 +1,212 @@
+/* 全局初始化，确保即使没有 h1 也能正常编号 */
+#write {
+    counter-reset: heading-h2 heading-h3 heading-h4 heading-h5 heading-h6;
+}
+
+/* 每遇到更高级别标题，重置下层标题计数器 */
+#write h1 {
+    counter-reset: heading-h2 heading-h3 heading-h4 heading-h5 heading-h6;
+}
+
+#write h2 {
+    counter-reset: heading-h3 heading-h4 heading-h5 heading-h6;
+}
+
+#write h3 {
+    counter-reset: heading-h4 heading-h5 heading-h6;
+}
+
+#write h4 {
+    counter-reset: heading-h5 heading-h6;
+}
+
+#write h5 {
+    counter-reset: heading-h6;
+}
+
+/* 支持 counter-set 时使用更安全的新语法 */
+@supports (counter-set: none) {
+    #write h1 {
+        counter-set: heading-h2 0 heading-h3 0 heading-h4 0 heading-h5 0 heading-h6 0;
+        counter-reset: none;
+    }
+
+    #write h2 {
+        counter-set: heading-h3 0 heading-h4 0 heading-h5 0 heading-h6 0;
+        counter-reset: none;
+    }
+
+    #write h3 {
+        counter-set: heading-h4 0 heading-h5 0 heading-h6 0;
+        counter-reset: none;
+    }
+
+    #write h4 {
+        counter-set: heading-h5 0 heading-h6 0;
+        counter-reset: none;
+    }
+
+    #write h5 {
+        counter-set: heading-h6 0;
+        counter-reset: none;
+    }
+}
+
+/* ---------- 生成编号 ---------- */
+
+#write h2:before {
+    counter-increment: heading-h2;
+    content: counter(heading-h2) " ";
+    margin-right: 1.2em;
+}
+
+#write h3:before {
+    counter-increment: heading-h3;
+    content: counter(heading-h2) "." counter(heading-h3) " ";
+    margin-right: 1.2em;
+}
+
+#write h4:before {
+    counter-increment: heading-h4;
+    content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4) " ";
+    margin-right: 1.2em;
+}
+
+#write h5:before {
+    counter-increment: heading-h5;
+    content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4) "." counter(heading-h5) " ";
+    margin-right: 1.2em;
+}
+
+#write h6:before {
+    counter-increment: heading-h6;
+    content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4) "." counter(heading-h5) "." counter(heading-h6) " ";
+    margin-right: 1.2em;
+}
+
+/* ---------- 聚焦标题的编号 ---------- */
+h2.md-focus.md-heading:before {
+    counter-increment: heading-h2;
+    content: counter(heading-h2) " ";
+    margin-right: 1.2em;
+}
+
+h3.md-focus.md-heading:before {
+    counter-increment: heading-h3;
+    content: counter(heading-h2) "." counter(heading-h3) " ";
+    margin-right: 1.2em;
+}
+
+h4.md-focus.md-heading:before {
+    counter-increment: heading-h4;
+    content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4) " ";
+    margin-right: 1.2em;
+}
+
+h5.md-focus.md-heading:before {
+    counter-increment: heading-h5;
+    content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4) "." counter(heading-h5) " ";
+    margin-right: 1.2em;
+}
+
+h6.md-focus.md-heading:before {
+    counter-increment: heading-h6;
+    content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4) "." counter(heading-h5) "." counter(heading-h6) " ";
+    margin-right: 1.2em;
+}
+
+/* 全局初始化所有大纲计数器 */
+.sidebar-content {
+    counter-reset: outline-h1 outline-h2 outline-h3 outline-h4 outline-h5 outline-h6;
+}
+
+/* 一级标题：只重置，不编号 */
+.sidebar-content .outline-h1 {
+    counter-reset: outline-h2 outline-h3 outline-h4 outline-h5 outline-h6;
+}
+
+/* 二级标题 */
+.sidebar-content .outline-h2 {
+    counter-reset: outline-h3 outline-h4 outline-h5 outline-h6;
+}
+
+.sidebar-content .outline-h2 .outline-label:before {
+    counter-increment: outline-h2;
+    content: counter(outline-h2) " ";
+}
+
+/* 三级标题 */
+.sidebar-content .outline-h3 {
+    counter-reset: outline-h4 outline-h5 outline-h6;
+}
+
+.sidebar-content .outline-h3 .outline-label:before {
+    counter-increment: outline-h3;
+    content: counter(outline-h2) "." counter(outline-h3) " ";
+}
+
+/* 四级标题 */
+.sidebar-content .outline-h4 {
+    counter-reset: outline-h5 outline-h6;
+}
+
+.sidebar-content .outline-h4 .outline-label:before {
+    counter-increment: outline-h4;
+    content: counter(outline-h2) "." counter(outline-h3) "." counter(outline-h4) " ";
+}
+
+/* 五级标题 */
+.sidebar-content .outline-h5 {
+    counter-reset: outline-h6;
+}
+
+.sidebar-content .outline-h5 .outline-label:before {
+    counter-increment: outline-h5;
+    content: counter(outline-h2) "." counter(outline-h3) "." counter(outline-h4) "." counter(outline-h5) " ";
+}
+
+/* 六级标题 */
+.sidebar-content .outline-h6 .outline-label:before {
+    counter-increment: outline-h6;
+    content: counter(outline-h2) "." counter(outline-h3) "." counter(outline-h4) "." counter(outline-h5) "." counter(outline-h6) " ";
+}
+
+/* ---------- 禁用 title.css 的 hover 标签，保持编号一致 ---------- */
+#write h2:hover:before,
+#write h3:hover:before,
+#write h4:hover:before,
+#write h5:hover:before,
+#write h6:hover:before {
+    position: static;
+    right: auto;
+    bottom: auto;
+    line-height: normal;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+}
+
+#write h2:hover:before {
+    content: counter(heading-h2) " ";
+    margin-right: 1.2em;
+}
+
+#write h3:hover:before {
+    content: counter(heading-h2) "." counter(heading-h3) " ";
+    margin-right: 1.2em;
+}
+
+#write h4:hover:before {
+    content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4) " ";
+    margin-right: 1.2em;
+}
+
+#write h5:hover:before {
+    content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4) "." counter(heading-h5) " ";
+    margin-right: 1.2em;
+}
+
+#write h6:hover:before {
+    content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4) "." counter(heading-h5) "." counter(heading-h6) " ";
+    margin-right: 1.2em;
+}

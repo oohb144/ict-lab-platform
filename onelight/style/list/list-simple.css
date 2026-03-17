@@ -1,0 +1,76 @@
+/* 有序列表 */
+#write ul li {
+    list-style-type: initial;
+}
+
+#write ul ul li {
+    list-style-type: square;
+}
+
+#write ul ul ul li {
+    list-style-type: circle;
+}
+
+#write ul ul ul ul li {
+    list-style-type: disclosure-closed;
+}
+
+
+
+ul>li>ul>li>ul>li>ul>li::marker {
+    font-size: 1.2rem;
+}
+
+ul li::marker {
+    color: var(--alert-theme-color, var(--theme-color));
+    font-size: 1.5em;
+}
+
+/* 有序列表 */
+
+#write ol li {
+    list-style-type: decimal;
+}
+
+ol li::marker {
+    font-size: 1rem;
+    color: var(--alert-theme-color, var(--theme-color));
+}
+
+
+/* 任务列表 */
+#write input[type=checkbox] {
+    margin-left: -1.5em;
+    width: 1.2em;
+    height: 1.2rem;
+    margin-top: calc(1em - 5px);
+}
+
+#write li>p {
+    margin: 0;
+    padding: 0;
+    margin-left: 10px;
+}
+
+/* ---------------->> 完成任务的删除线 <<---------------- */
+.md-task-list-item span {
+    position: relative;
+    display: inline;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 2px;
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    transition: background-size .38s ease;
+}
+
+/* 完成状态 */
+.md-task-list-item.task-list-done span {
+    color: grey;
+    background-size: 100% 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .md-task-list-item span {
+        transition: none;
+    }
+}

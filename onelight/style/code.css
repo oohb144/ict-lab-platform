@@ -1,0 +1,190 @@
+/* ---------------->> 代码框右下角的语言类型显示 <<---------------- */
+pre.md-fences.md-end-block.md-fences-with-lineno.ty-contain-cm::after {
+    content: attr(lang);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #e0e0e0;
+    padding: 2px 5px;
+    border-radius: var(--radius-small);
+    z-index: 20;
+}
+
+
+/* ---------------->> 代码块文本 <<---------------- */
+pre.CodeMirror-line>span {
+    color: var(--light-color);
+}
+
+.md-rawblock:hover>.md-rawblock-container {
+    border-radius: var(--radius-small);
+}
+
+/* ---------------->> meta代码块 <<---------------- */
+#write>pre.md-meta-block.md-end-block {
+    background: var(--theme-light-color) !important;
+    border-radius: var(--radius-large);
+    box-shadow: var(--box-shadow);
+    padding: 10px;
+    transition: var(--transition)
+}
+
+#write>pre.md-meta-block.md-end-block:hover,
+#write>pre.md-meta-block.md-end-block:focus {
+    box-shadow: var(--box-shadow-large);
+}
+
+/* ---------------->> 代码块选中 <<---------------- */
+.CodeMirror-selected,
+.CodeMirror-selectedtext {
+    color: white !important;
+    background: var(--select-text-bg-color) !important;
+}
+
+/* 代码块活动行高亮 */
+.CodeMirror-focused .CodeMirror-activeline-background {
+    background-color: var(--code-bg-color-active);
+}
+
+/* 活动行行号 */
+.CodeMirror-activeline .CodeMirror-activeline-gutter {
+    .CodeMirror-linenumber {
+        color: white;
+    }
+}
+
+
+
+/* ---------------->> 代码语言类型 <<---------------- */
+span.ty-input.ty-input-after.ty-cm-lang-input {
+    color: white;
+}
+
+pre[lang=flow],
+pre[lang=mermaid],
+pre[lang=sequence] {
+    background: var(--theme-light-color);
+    color: #333
+}
+
+/* ---------------->> 代码块 <<---------------- */
+.md-fences,
+code {
+    border-radius: 5px;
+    margin-left: .2em;
+    margin-right: .2em;
+    padding: .1em
+}
+
+.md-fences {
+    background-color: var(--code-bg-color);
+    box-shadow: var(--box-shadow);
+    color: var(--bg-color);
+    margin: 0 0 20px;
+    padding: .4em 1em .3em;
+    transition: var(--transition)
+}
+
+/* ---------------->> 代码块光标 <<---------------- */
+.CodeMirror div.CodeMirror-cursor {
+    border-left: 1.5px solid var(--main-green);
+}
+
+
+
+/* 代码配色 */
+.cm-s-inner .cm-keyword {
+    color: var(--main-purple)
+}
+
+.cm-s-inner .cm-operator {
+    color: #89ddff
+}
+
+.cm-s-inner .cm-variable-2 {
+    color: #eff
+}
+
+.cm-s-inner .cm-type,
+.cm-s-inner .cm-variable-3 {
+    color: #ea6717
+}
+
+.cm-s-inner .cm-builtin {
+    color: #ffcb6b
+}
+
+.cm-s-inner .cm-atom {
+    color: #f78c6c
+}
+
+.cm-s-inner .cm-number {
+    color: #ff5370
+}
+
+.cm-s-inner .cm-def {
+    color: #ff8c00
+}
+
+.cm-s-inner .cm-string {
+    color: #00ad47
+}
+
+.cm-s-inner .cm-string-2 {
+    color: #f07178
+}
+
+.cm-s-inner .cm-comment {
+    color: #cdcdcd;
+}
+
+.cm-s-inner .cm-variable {
+    color: #42a5f5
+}
+
+.cm-s-inner .cm-meta {
+    color: var(--main-red)
+}
+
+.cm-s-inner .cm-attribute {
+    color: #e26fff;
+}
+
+.cm-s-inner .cm-property,
+.cm-s-inner .cm-qualifier {
+    color: var(--main-red)
+}
+
+.cm-s-inner .cm-error {
+    border: solid 0.25px #e9405c;
+    color: #fff;
+}
+
+
+/* 代码类型下拉列表 */
+.auto-suggest-container li.active,
+.auto-suggest-container li:hover {
+    background-color: var(--item-bg-color-blue);
+}
+
+#write code {
+    background-color: var(--item-hover-bg-color);
+    color: #eb4c37;
+    font-family: var(--main-font-family);
+    font-size: .9rem;
+    font-size: .9rem;
+}
+
+#write li code,
+#write p code,
+#write span code {
+    border-radius: var(--radius-xsmall);
+    margin: 0 2px;
+    padding: 2px 4px;
+    word-break: break-all;
+    word-wrap: break-word
+}
+
+#write .md-heading code {
+    font-size: unset;
+}

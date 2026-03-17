@@ -1,0 +1,119 @@
+#write {
+
+    /* ---------------->> 引用块 <<---------------- */
+    blockquote {
+        background: var(--gradient-color);
+        border-bottom-right-radius: 10px;
+        border-left: 5px solid var(--theme-color);
+        border-top-right-radius: 10px;
+        box-shadow: var(--box-shadow);
+        color: rgb(from var(--text-color) r g b / 0.8);
+        font-size: .9em;
+        margin-bottom: 16px;
+        margin-top: 16px;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 10px 10px 10px 20px;
+        transition: var(--bg-transition)
+    }
+
+    blockquote:hover {
+        transition: var(--bg-transition);
+        background: var(--bg-color);
+        box-shadow: var(--box-shadow-large);
+    }
+
+    blockquote p {
+        line-height: 26px
+    }
+
+
+    /* ---------------->> 不同类型的警告框 <<---------------- */
+    .md-alert-tip {
+        --alert-theme-color: rgb(31, 136, 61);
+        --color-rgb: 31, 136, 61;
+    }
+
+    .md-alert-note {
+        --alert-theme-color: rgb(9, 105, 218);
+    }
+
+    .md-alert-important {
+        --alert-theme-color: rgb(130, 80, 223);
+    }
+
+    .md-alert-caution {
+        --alert-theme-color: rgb(207, 34, 46);
+    }
+
+    .md-alert-warning {
+        --alert-theme-color: rgb(250, 173, 20);
+
+        .md-alert-text-container[data-text="warning"] {
+            color: rgb(250, 173, 20);
+        }
+    }
+
+
+    /* ---------------->> GH风格警告框 <<---------------- */
+    .md-alert {
+        border-color: var(--alert-theme-color);
+        border-left-color: var(--alert-theme-color) !important;
+        border-radius: 10px;
+        background: rgb(from var(--alert-theme-color) r g b / 0.2);
+        box-shadow: var(--box-shadow);
+        transition: var(--bg-transition);
+        border: solid 2px var(--alert-theme-color);
+        transition: backdrop-filter 0.3s ease-in-out;
+
+        &:hover {
+            backdrop-filter: blur(10px);
+        }
+
+        /* 行内代码 */
+        li code,
+        p code,
+        span code {
+            background: var(--alert-theme-color) !important;
+            color: white !important;
+        }
+
+        /* 列表标签 */
+        .ol .li:before,
+        .ul .li:before,
+        ol li:before,
+        ul li:before {
+            background: var(--alert-theme-color) !important;
+        }
+
+        /* 粗体 */
+        strong {
+            color: var(--alert-theme-color);
+        }
+
+        blockquote {
+            border-color: var(--alert-theme-color);
+            border-left-color: var(--alert-theme-color) !important;
+            border-radius: 10px;
+            background: rgb(from var(--alert-theme-color) r g b / 0.2);
+            box-shadow: var(--box-shadow);
+            transition: var(--bg-transition);
+            border: solid 2px var(--alert-theme-color);
+            transition: backdrop-filter 0.3s ease-in-out;
+
+            &:hover {
+                background-color: unset;
+            }
+        }
+
+    }
+
+
+    /* ---------------->> 警告框内段落悬浮样式重置 <<---------------- */
+    blockquote p:hover,
+    .md-alert p:hover {
+        background: transparent !important;
+        box-shadow: unset !important;
+    }
+
+}

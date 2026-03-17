@@ -1,0 +1,205 @@
+:root {
+    --list-height: 20px;
+}
+
+#write li>p {
+    line-height: var(--list-height);
+}
+
+/* ---------------->> 列表 <<---------------- */
+#write ol,
+#write ul {
+    margin-bottom: 8px;
+    margin-top: 8px;
+    padding-left: 40px !important;
+}
+
+#write li section {
+    font-size: .9rem;
+    font-size: .9rem;
+}
+
+#write ol li,
+#write ul li {
+    list-style-type: none;
+    margin-bottom: 7px;
+    margin-top: 7px
+}
+
+/* ---------------->> 无序列表前小圆点 <<---------------- */
+#write .ul>.li:not(.tab):not(.task-list-item):before,
+#write ul>li:not(.tab):not(.task-list-item):before {
+    border-radius: .31em;
+    content: "";
+    height: .62em;
+    line-height: var(--list-height);
+    margin-left: -22px;
+    margin-top: calc(var(--list-height) / 2);
+    width: .62em;
+    transition: transform 0.3s;
+}
+
+#write .ul>.li:not(.tab):not(.task-list-item):hover:before,
+#write ul>li:not(.tab):not(.task-list-item):hover:before {
+    transform: rotate(360deg) !important;
+}
+
+
+/* ---------------->> 二级无序列表前小方块 <<---------------- */
+#write ul>li:not(.tab):not(.task-list-item)>ul>li.md-list-item::before {
+    border-radius: 0;
+    transform: rotate(45deg);
+}
+
+/* ---------------->> 三级无序列表前小方块 <<---------------- */
+#write ul>li:not(.tab):not(.task-list-item)>ul>li.md-list-item>ul>li.md-list-item::before {
+    border-radius: 0;
+    transform: unset;
+}
+
+/* ---------------->> 四级无序列表前小方块 <<---------------- */
+#write ul>li:not(.tab):not(.task-list-item)>ul>li.md-list-item>ul>li.md-list-item>ul>li.md-list-item::before {
+    border-radius: 0;
+    background: transparent;
+    border: 1.5px solid var(--theme-color);
+}
+
+
+#write .ol .li:before,
+#write .ul .li:before,
+#write ol li:before,
+#write ul li:before {
+    background: var(--theme-color);
+    position: absolute;
+}
+
+#write .ol .li:hover:before,
+#write .ul .li:hover:before,
+#write ol li:hover:before,
+#write ul li:hover:before {
+    transform: rotate(1turn)
+}
+
+#write .ul>.li:not(.tab):hover:before,
+#write ul>li:not(.tab):hover:before {
+    background-color: var(--main-red);
+    border-color: transparent;
+}
+
+/* ---------------->> 有序列表前数字 <<---------------- */
+#write .ol>.li:before,
+#write ol>li:before {
+    padding: 0 3px;
+    border-radius: .825em;
+    color: #fff;
+    content: counter(list-item);
+    counter-increment: li;
+    font-size: .65em;
+    margin-left: -25px;
+    margin-top: calc(var(--list-height) / 2 - 3px);
+    text-align: center;
+    width: auto;
+    min-width: 1.65em;
+    white-space: nowrap;
+    transition: transform 0.5s;
+}
+
+#write .ol>.li:hover:before,
+#write ol>li:hover:before {
+    transform: rotate(720deg) !important;
+}
+
+#write .ol .li input,
+#write .ul .li input,
+#write ol li input,
+#write ul li input {
+    margin-bottom: 0;
+    margin-top: 0
+}
+
+/* ---------------->> todo列表-复选框 <<---------------- */
+
+#write input[type=checkbox] {
+    top: calc(var(--list-height) / 2 - 4px);
+    position: absolute;
+    height: 1.2rem;
+    width: 1.2rem;
+    margin-left: -1.8em;
+}
+
+/* ---- 任务列表复选框动画增强 ---- */
+#write input[type=checkbox] {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 2px solid var(--alert-theme-color, var(--theme-color));
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* 勾形 */
+#write input[type=checkbox]::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50%;
+    height: 85%;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -62%) rotate(45deg);
+    opacity: 0;
+    box-sizing: border-box;
+}
+
+#write input[type=checkbox]:checked {
+    background: var(--alert-theme-color, var(--theme-color));
+    border-color: var(--alert-theme-color, var(--theme-color));
+}
+
+#write input[type=checkbox]:checked::after {
+    opacity: 1;
+}
+
+li.md-list-item.task-list-item.md-task-list-item::marker {
+    content: none;
+    font-size: inherit;
+}
+
+.md-task-list-item span {
+    position: relative;
+    display: inline-block;
+}
+
+/* ---------------->> 删除线 <<---------------- */
+.md-task-list-item span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0) translateY(-50%);
+    transform-origin: left center;
+    transition: transform .38s ease;
+}
+
+/* 完成状态：颜色变淡 + 线条展开 */
+.md-task-list-item.task-list-done span {
+    color: grey;
+}
+
+.md-task-list-item.task-list-done span::after {
+    transform: scaleX(1) translateY(-50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .md-task-list-item span::after {
+        transition: none;
+    }
+}
+
+del {
+    color: grey;
+}

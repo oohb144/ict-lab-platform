@@ -1,0 +1,43 @@
+@font-face {
+    font-family: 'Jetbrains Mono';
+    src: url('../fonts/JetBrainsMono-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: '喵字果汁体';
+    src: url('../fonts/MiaoZi-GuoZhiTi.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'codicon';
+    src: url('../fonts/codicon.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --main-font-family: "Jetbrains Mono", "Cascadia Code", "喵字果汁体", consolas, "微软雅黑", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --monospace: "Jetbrains Mono", "Cascadia Code", monospace;
+}
+
+body,
+script,
+text,
+.md-rawblock-after,
+.md-rawblock-before,
+code,
+pre,
+samp,
+tt,
+.md-fences-adv-panel,
+.md-math-container,
+.md-mathjax-preview,
+text.actor>tspan,
+text.messageText,
+span.nodeLabel.markdown-node-label {
+    font-family: var(--main-font-family);
+}

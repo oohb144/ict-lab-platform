@@ -1,0 +1,315 @@
+/* GPU全加速星空背景 - 保持原版星星数量，完全使用显卡处理 */
+:root {
+    --bg-trans-color: #3a3f4a70;
+    /* GPU优化动画时长 */
+    --star-rotation-duration: 12s;
+    --star-breathe-duration: 3s;
+    --star-rotation-2-duration: 8s;
+    --star-breathe-2-duration: 4s;
+    --star-rotation-3-duration: 10s;
+    --star-breathe-3-duration: 5s;
+    --star-rotation-4-duration: 14s;
+    --star-breathe-4-duration: 7s;
+}
+
+/* 背景设置 */
+html {
+    background: linear-gradient(to bottom, #0f1923, #0d1117, #050608) !important;
+}
+
+div#typora-sidebar {
+    background: transparent;
+}
+
+body {
+    background: transparent !important;
+    overflow-x: hidden;
+}
+
+/* GPU加速基础层 - 为所有星空元素创建合成层 */
+body::before,
+body::after,
+html::before,
+html::after,
+div#typora-sidebar::before,
+div#file-library::before {
+    /* 强制GPU合成层 */
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    /* CSS containment 优化 */
+    contain: layout style paint;
+    pointer-events: none;
+}
+
+/* 星星 - 第一层 (小星星) - 完整保留原版所有星星 */
+body::before,
+div#typora-sidebar::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    z-index: -10;
+    background: transparent;
+    transform-origin: 50vw 300vh;
+    /* 保持原版完整的星星列表 */
+    box-shadow: 757px 1166px rgba(255, 255, 255, 0.8), 1554px 147px rgba(255, 255, 255, 0.9),
+        1205px 1239px rgba(255, 255, 255, 0.7), 1149px 493px rgba(255, 255, 255, 1),
+        183px 123px rgba(255, 255, 255, 0.6), 1076px 957px rgba(255, 255, 255, 0.8),
+        137px 1723px rgba(255, 255, 255, 0.9), 497px 632px rgba(255, 255, 255, 0.7),
+        1845px 1279px rgba(255, 255, 255, 1), 1021px 825px rgba(255, 255, 255, 0.6),
+        347px 583px rgba(255, 255, 255, 0.8), 689px 1230px rgba(255, 255, 255, 0.9),
+        1864px 428px rgba(255, 255, 255, 0.7), 1334px 1100px rgba(255, 255, 255, 1),
+        412px 1513px rgba(255, 255, 255, 0.6), 500px 765px rgba(255, 255, 255, 0.8),
+        1023px 325px rgba(255, 255, 255, 0.9), 1155px 1852px rgba(255, 255, 255, 0.7),
+        206px 1783px rgba(255, 255, 255, 1), 913px 355px rgba(255, 255, 255, 0.6),
+        1365px 912px rgba(255, 255, 255, 0.8), 458px 248px rgba(255, 255, 255, 0.9),
+        1520px 1745px rgba(255, 255, 255, 0.7), 1018px 50px rgba(255, 255, 255, 1),
+        267px 612px rgba(255, 255, 255, 0.6), 953px 1763px rgba(255, 255, 255, 0.8),
+        1788px 523px rgba(255, 255, 255, 0.9), 478px 1860px rgba(255, 255, 255, 0.7),
+        1295px 236px rgba(255, 255, 255, 1), 1612px 1148px rgba(255, 255, 255, 0.6),
+        1691px 667px rgba(255, 255, 255, 0.8), 893px 276px rgba(255, 255, 255, 0.9),
+        54px 987px rgba(255, 255, 255, 0.7), 1792px 83px rgba(255, 255, 255, 1),
+        656px 1312px rgba(255, 255, 255, 0.6), 1212px 1483px rgba(255, 255, 255, 0.8),
+        251px 874px rgba(255, 255, 255, 0.9), 1988px 341px rgba(255, 255, 255, 0.7),
+        888px 1563px rgba(255, 255, 255, 1), 1431px 59px rgba(255, 255, 255, 0.6),
+        333px 1912px rgba(255, 255, 255, 0.8), 1754px 811px rgba(255, 255, 255, 0.9),
+        602px 222px rgba(255, 255, 255, 0.7), 1222px 1777px rgba(255, 255, 255, 1),
+        128px 1888px rgba(255, 255, 255, 0.6), 930px 420px rgba(255, 255, 255, 0.8),
+        1670px 1450px rgba(255, 255, 255, 0.9), 400px 900px rgba(255, 255, 255, 0.7),
+        1950px 100px rgba(255, 255, 255, 1), 50px 1500px rgba(255, 255, 255, 0.6),
+        1423px 632px rgba(255, 255, 255, 0.8), 876px 1923px rgba(255, 255, 255, 0.9),
+        1823px 223px rgba(255, 255, 255, 0.7), 123px 777px rgba(255, 255, 255, 1),
+        1111px 111px rgba(255, 255, 255, 0.6), 1999px 1555px rgba(255, 255, 255, 0.8),
+        284px 1912px rgba(255, 255, 255, 0.8), 1055px 741px rgba(255, 255, 255, 0.9),
+        1734px 123px rgba(255, 255, 255, 0.7), 444px 1444px rgba(255, 255, 255, 1),
+        987px 299px rgba(255, 255, 255, 0.6), 1621px 1821px rgba(255, 255, 255, 0.8);
+    /* 使用GPU加速的组合动画 */
+    animation: animStarGPU var(--star-rotation-duration) linear infinite,
+               animBreatheGPU var(--star-breathe-duration) ease-in-out infinite alternate;
+}
+
+/* 星星 - 第二层 (大一点的星星) - 完整保留原版所有星星 */
+body::after,
+div#typora-sidebar::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    z-index: -10;
+    background: transparent;
+    transform-origin: 50vw 250vh;
+    /* 保持原版完整的星星列表 */
+    box-shadow: 1766px 1618px rgba(255, 255, 255, 0.9), 303px 1863px rgba(255, 255, 255, 1),
+        889px 1034px rgba(255, 255, 255, 0.8), 117px 124px rgba(255, 255, 255, 0.9),
+        125px 948px rgba(255, 255, 255, 1), 1205px 461px rgba(255, 255, 255, 0.8),
+        1831px 1108px rgba(255, 255, 255, 0.9), 233px 1476px rgba(255, 255, 255, 1),
+        978px 345px rgba(255, 255, 255, 0.8), 1135px 1290px rgba(255, 255, 255, 0.9),
+        384px 756px rgba(255, 255, 255, 1), 623px 1265px rgba(255, 255, 255, 0.8),
+        1835px 592px rgba(255, 255, 255, 0.9), 512px 983px rgba(255, 255, 255, 1),
+        1558px 344px rgba(255, 255, 255, 0.8), 322px 1316px rgba(255, 255, 255, 0.9),
+        1069px 238px rgba(255, 255, 255, 1), 1756px 1715px rgba(255, 255, 255, 0.8),
+        867px 1456px rgba(255, 255, 255, 0.9), 236px 607px rgba(255, 255, 255, 1),
+        1590px 855px rgba(255, 255, 255, 0.8), 723px 73px rgba(255, 255, 255, 0.9),
+        1238px 1897px rgba(255, 255, 255, 1), 493px 382px rgba(255, 255, 255, 0.8),
+        1888px 200px rgba(255, 255, 255, 0.9), 77px 1500px rgba(255, 255, 255, 1),
+        642px 642px rgba(255, 255, 255, 0.8), 1499px 1221px rgba(255, 255, 255, 0.9),
+        1980px 800px rgba(255, 255, 255, 1), 450px 1800px rgba(255, 255, 255, 0.8),
+        288px 921px rgba(255, 255, 255, 0.9), 1341px 331px rgba(255, 255, 255, 1),
+        999px 1666px rgba(255, 255, 255, 0.8), 1631px 259px rgba(255, 255, 255, 0.9),
+        555px 1999px rgba(255, 255, 255, 1), 1801px 811px rgba(255, 255, 255, 0.8),
+        199px 682px rgba(255, 255, 255, 0.9), 731px 1198px rgba(255, 255, 255, 1),
+        1456px 456px rgba(255, 255, 255, 0.8), 1987px 1342px rgba(255, 255, 255, 0.9),
+        367px 1832px rgba(255, 255, 255, 1), 1050px 50px rgba(255, 255, 255, 0.8),
+        229px 1432px rgba(255, 255, 255, 0.9), 811px 731px rgba(255, 255, 255, 1),
+        1566px 999px rgba(255, 255, 255, 0.8), 652px 199px rgba(255, 255, 255, 0.9),
+        1732px 1888px rgba(255, 255, 255, 1), 50px 1050px rgba(255, 255, 255, 0.8),
+        1229px 432px rgba(255, 255, 255, 0.9), 1811px 1731px rgba(255, 255, 255, 1),
+        566px 1999px rgba(255, 255, 255, 0.8), 1652px 299px rgba(255, 255, 255, 0.9),
+        732px 888px rgba(255, 255, 255, 1), 150px 150px rgba(255, 255, 255, 0.8),
+        812px 1723px rgba(255, 255, 255, 0.9), 1432px 333px rgba(255, 255, 255, 1),
+        488px 876px rgba(255, 255, 255, 0.8), 1954px 1482px rgba(255, 255, 255, 0.9),
+        699px 281px rgba(255, 255, 255, 1), 1188px 1982px rgba(255, 255, 255, 0.8);
+    /* 使用GPU加速的组合动画 */
+    animation: animStarGPU var(--star-rotation-2-duration) linear infinite,
+               animBreatheGPU var(--star-breathe-2-duration) ease-in-out infinite alternate;
+}
+
+/* 星星 - 第三层 (中等星星) - 完整保留原版所有星星 */
+html::before,
+div#file-library::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    z-index: -10;
+    background: transparent;
+    transform-origin: 50vw 200vh;
+    /* 保持原版完整的星星列表 */
+    box-shadow: 832px 451px rgba(255, 255, 255, 0.7), 198px 1823px rgba(255, 255, 255, 0.9),
+        1456px 88px rgba(255, 255, 255, 1), 743px 1299px rgba(255, 255, 255, 0.6),
+        1888px 670px rgba(255, 255, 255, 0.8), 301px 1950px rgba(255, 255, 255, 1),
+        1129px 234px rgba(255, 255, 255, 0.7), 53px 876px rgba(255, 255, 255, 0.9),
+        1675px 1432px rgba(255, 255, 255, 0.6), 921px 505px rgba(255, 255, 255, 0.8),
+        222px 1678px rgba(255, 255, 255, 1), 1388px 321px rgba(255, 255, 255, 0.7),
+        476px 943px rgba(255, 255, 255, 0.9), 1799px 1199px rgba(255, 255, 255, 0.6),
+        101px 101px rgba(255, 255, 255, 0.8), 666px 1555px rgba(255, 255, 255, 1),
+        1598px 487px rgba(255, 255, 255, 0.7), 81px 1333px rgba(255, 255, 255, 0.9),
+        1245px 765px rgba(255, 255, 255, 0.6), 1912px 1912px rgba(255, 255, 255, 0.8),
+        5px 600px rgba(255, 255, 255, 1), 555px 123px rgba(255, 255, 255, 0.7),
+        1821px 1054px rgba(255, 255, 255, 0.9), 388px 1777px rgba(255, 255, 255, 0.6),
+        1198px 588px rgba(255, 255, 255, 0.8), 23px 1498px rgba(255, 255, 255, 1),
+        1045px 82px rgba(255, 255, 255, 0.7), 687px 1134px rgba(255, 255, 255, 0.9),
+        1632px 1632px rgba(255, 255, 255, 0.6), 411px 411px rgba(255, 255, 255, 0.8),
+        1499px 1987px rgba(255, 255, 255, 1), 99px 888px rgba(255, 255, 255, 0.7),
+        1088px 132px rgba(255, 255, 255, 0.9), 734px 1569px rgba(255, 255, 255, 0.6),
+        1833px 933px rgba(255, 255, 255, 0.8), 321px 189px rgba(255, 255, 255, 1),
+        1532px 1754px rgba(255, 255, 255, 0.7), 601px 601px rgba(255, 255, 255, 0.9),
+        299px 1983px rgba(255, 255, 255, 0.6), 1776px 453px rgba(255, 255, 255, 0.8),
+        900px 1100px rgba(255, 255, 255, 1), 1301px 83px rgba(255, 255, 255, 0.7),
+        45px 1678px rgba(255, 255, 255, 0.9), 1150px 750px rgba(255, 255, 255, 0.6),
+        1950px 1350px rgba(255, 255, 255, 0.8), 210px 310px rgba(255, 255, 255, 1),
+        1654px 1876px rgba(255, 255, 255, 0.7), 832px 999px rgba(255, 255, 255, 0.9),
+        10px 1432px rgba(255, 255, 255, 0.6), 1367px 222px rgba(255, 255, 255, 0.8),
+        777px 1777px rgba(255, 255, 255, 1), 1824px 842px rgba(255, 255, 255, 0.7),
+        350px 150px rgba(255, 255, 255, 0.9), 1000px 1000px rgba(255, 255, 255, 0.6),
+        550px 1850px rgba(255, 255, 255, 0.8), 1999px 250px rgba(255, 255, 255, 1),
+        25px 999px rgba(255, 255, 255, 0.7), 1280px 1480px rgba(255, 255, 255, 0.9),
+        880px 80px rgba(255, 255, 255, 0.6), 1580px 1180px rgba(255, 255, 255, 0.8);
+    /* 使用GPU加速的组合动画 */
+    animation: animStarGPU var(--star-rotation-3-duration) linear infinite,
+               animBreatheGPU var(--star-breathe-3-duration) ease-in-out infinite alternate;
+}
+
+/* 星星 - 第四层 (微小星星) - 完整保留原版所有星星 */
+html::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    z-index: -9;
+    background: transparent;
+    transform-origin: 50vw 350vh;
+    /* 保持原版完整的星星列表 */
+    box-shadow: 1088px 256px rgba(255, 255, 255, 0.4), 1915px 758px rgba(255, 255, 255, 0.5),
+        512px 1848px rgba(255, 255, 255, 0.3), 795px 543px rgba(255, 255, 255, 0.4),
+        1408px 1087px rgba(255, 255, 255, 0.5), 263px 1544px rgba(255, 255, 255, 0.3),
+        1231px 283px rgba(255, 255, 255, 0.4), 178px 967px rgba(255, 255, 255, 0.5),
+        1528px 448px rgba(255, 255, 255, 0.3), 1935px 1765px rgba(255, 255, 255, 0.4),
+        845px 24px rgba(255, 255, 255, 0.5), 1813px 1093px rgba(255, 255, 255, 0.3),
+        582px 1125px rgba(255, 255, 255, 0.4), 1240px 1228px rgba(255, 255, 255, 0.5),
+        409px 925px rgba(255, 255, 255, 0.3), 1184px 1785px rgba(255, 255, 255, 0.4),
+        1978px 675px rgba(255, 255, 255, 0.5), 792px 1744px rgba(255, 255, 255, 0.3),
+        1683px 1336px rgba(255, 255, 255, 0.4), 324px 696px rgba(255, 255, 255, 0.5),
+        1725px 972px rgba(255, 255, 255, 0.3), 597px 1459px rgba(255, 255, 255, 0.4),
+        1805px 266px rgba(255, 255, 255, 0.5), 647px 890px rgba(255, 255, 255, 0.3),
+        933px 412px rgba(255, 255, 255, 0.4), 1852px 1183px rgba(255, 255, 255, 0.5),
+        1728px 305px rgba(255, 255, 255, 0.3), 389px 1129px rgba(255, 255, 255, 0.4),
+        1304px 1487px rgba(255, 255, 255, 0.5), 189px 1797px rgba(255, 255, 255, 0.3),
+        945px 680px rgba(255, 255, 255, 0.4), 1929px 84px rgba(255, 255, 255, 0.5),
+        1770px 1299px rgba(255, 255, 255, 0.3), 561px 232px rgba(255, 255, 255, 0.4),
+        42px 424px rgba(255, 255, 255, 0.5), 1675px 1988px rgba(255, 255, 255, 0.3),
+        999px 999px rgba(255, 255, 255, 0.4), 1337px 137px rgba(255, 255, 255, 0.5),
+        222px 1222px rgba(255, 255, 255, 0.3), 1881px 188px rgba(255, 255, 255, 0.4),
+        335px 843px rgba(255, 255, 255, 0.5), 1024px 1444px rgba(255, 255, 255, 0.3),
+        1567px 732px rgba(255, 255, 255, 0.4), 688px 1821px rgba(255, 255, 255, 0.5),
+        1900px 500px rgba(255, 255, 255, 0.3), 200px 1000px rgba(255, 255, 255, 0.4),
+        701px 121px rgba(255, 255, 255, 0.5), 1432px 1654px rgba(255, 255, 255, 0.3),
+        187px 832px rgba(255, 255, 255, 0.4), 1654px 333px rgba(255, 255, 255, 0.5),
+        815px 1389px rgba(255, 255, 255, 0.3), 1293px 948px rgba(255, 255, 255, 0.4),
+        444px 555px rgba(255, 255, 255, 0.5), 1777px 177px rgba(255, 255, 255, 0.3),
+        22px 1690px rgba(255, 255, 255, 0.4), 1987px 934px rgba(255, 255, 255, 0.5),
+        623px 1892px rgba(255, 255, 255, 0.3), 1492px 72px rgba(255, 255, 255, 0.4),
+        888px 1111px rgba(255, 255, 255, 0.5), 1621px 1321px rgba(255, 255, 255, 0.3),
+        284px 1583px rgba(255, 255, 255, 0.4), 983px 621px rgba(255, 255, 255, 0.5),
+        1385px 1024px rgba(255, 255, 255, 0.3), 482px 1982px rgba(255, 255, 255, 0.4),
+        1932px 832px rgba(255, 255, 255, 0.5), 321px 1832px rgba(255, 255, 255, 0.3),
+        1832px 1321px rgba(255, 255, 255, 0.4), 832px 321px rgba(255, 255, 255, 0.5),
+        1121px 1121px rgba(255, 255, 255, 0.3), 1488px 1844px rgba(255, 255, 255, 0.4),
+        356px 978px rgba(255, 255, 255, 0.5), 1123px 1589px rgba(255, 255, 255, 0.3),
+        1789px 467px rgba(255, 255, 255, 0.4), 254px 1234px rgba(255, 255, 255, 0.5),
+        876px 121px rgba(255, 255, 255, 0.3), 1998px 1876px rgba(255, 255, 255, 0.4);
+    /* 使用GPU加速的组合动画，反向旋转 */
+    animation: animStarGPU var(--star-rotation-4-duration) linear infinite,
+               animBreatheGPU var(--star-breathe-4-duration) ease-in-out infinite alternate;
+}
+
+/* GPU优化的旋转动画 - 只使用transform */
+@keyframes animStarGPU {
+    0% {
+        transform: translateZ(0) rotate(0deg);
+    }
+    100% {
+        transform: translateZ(0) rotate(25deg);
+    }
+}
+
+/* GPU优化的呼吸动画 - 使用opacity */
+@keyframes animBreatheGPU {
+    0% { opacity: 0.3; }
+    25% { opacity: 0.6; }
+    50% { opacity: 1; }
+    75% { opacity: 0.8; }
+    100% { opacity: 0.4; }
+}
+
+/* 修改部分组件背景色 */
+#write table tr,
+p.md-toc-content {
+    background-color: var(--bg-trans-color) !important;
+}
+
+#write table tr:nth-child(2n) {
+    background-color: #23293591;
+}
+
+/* 额外的GPU优化 */
+#write, 
+div#typora-sidebar,
+div#file-library {
+    /* 为主要容器启用硬件加速，减少重绘 */
+    transform: translateZ(0);
+    will-change: auto;
+}
+
+/* 响应式优化：在小屏幕上减少动画强度 */
+@media (max-width: 768px) {
+    :root {
+        --star-rotation-duration: 20s;
+        --star-rotation-2-duration: 16s;
+        --star-rotation-3-duration: 18s;
+        --star-rotation-4-duration: 22s;
+    }
+}
+
+/* 用户偏好设置：尊重用户的动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+    body::before,
+    body::after,
+    html::before,
+    html::after {
+        animation: none;
+    }
+}
+
+/* 高刷新率屏幕优化 */
+@media (min-resolution: 120dpi) {
+    :root {
+        --star-rotation-duration: 10s;
+        --star-rotation-2-duration: 7s;
+        --star-rotation-3-duration: 8s;
+        --star-rotation-4-duration: 12s;
+    }
+}

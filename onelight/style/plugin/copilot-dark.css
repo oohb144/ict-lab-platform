@@ -1,0 +1,10 @@
+/* 对https://github.com/Snowflyt/typora-copilot的适配 */
+@import './copilot.css';
+
+div#copilot-chat-container {
+    --border-color: #333;
+}
+
+div#common-dialog-message>div>div {
+    background: transparent !important;
+}

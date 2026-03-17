@@ -1,0 +1,408 @@
+#write h1,
+#write h2,
+#write h3,
+#write h4,
+#write h5,
+#write h6 {
+    font-weight: lighter;
+}
+
+#write h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    padding-bottom: 0.3em;
+
+    background: linear-gradient(to right, #7ac9ff, #d6a9ff, #7ac9ff);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    caret-color: #7ac9ff;
+
+    width: fit-content;
+    margin: 0 auto;
+
+    position: relative;
+
+    padding: 5px;
+
+    transition: all 0.5s ease;
+
+    animation: gradientMove 4s linear infinite;
+
+    --ol-title-decoration-color: #7ac9ff;
+}
+
+#write h1:not(:focus):not(.md-focus):not(.cm-active):hover {
+    animation: textSplitReform 1s ease 150ms 1 both, gradientMove 2s linear infinite;
+}
+
+#write h2 {
+    font-size: 1.7rem;
+    margin: 1em 0;
+    border-bottom: none !important;
+    padding-bottom: 0.2em;
+    color: #ff8da1;
+    position: relative;
+    display: block;
+    width: auto;
+
+    --ol-title-decoration-color: #ff8da1;
+}
+
+#write h2 span.md-plain {
+    display: inline-block;
+    background: linear-gradient(to right, #ff8da1, #ffbe70, #ff8da1);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    caret-color: #ff8da1;
+    animation: gradientMove 6s linear infinite;
+}
+
+#write h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    height: 2px;
+    background: linear-gradient(to right, #ff8da1, #ffbe70, #ff8da1);
+    background-size: 200% 100%;
+    border-radius: 2px;
+    transform-origin: left;
+    transform: scaleX(1);
+    transition: transform 0.3s ease-in-out;
+    animation: gradientMove 6s linear infinite;
+}
+
+#write h2:hover::after {
+    transform: scaleX(0);
+}
+
+@keyframes gradientFlowRight {
+    0% {
+        background-position: 200% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#write h3 {
+    font-size: 1.5rem;
+    width: fit-content;
+    line-height: 1.6;
+    margin: 20px 0;
+    padding: 1px 12.5px;
+    position: relative;
+    border-radius: 4px;
+    border: none !important;
+    background: linear-gradient(to right, #a9e5fc, #dce6d3, #fccbb8, #fccbb8, #dce6d3, #a9e5fc);
+    background-size: 200% 100%;
+    animation: gradientFlowRight 8s linear infinite;
+    transition: transform 0.3s ease, box-shadow 0.5s ease, background 0.5s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+    --ol-title-decoration-color: #594582;
+}
+
+#write h3 span.md-plain {
+    display: inline-block;
+    background: linear-gradient(to right, #796f84, #5b4b47, #796f84);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    caret-color: #594582;
+    animation: gradientFlowRight 6s linear infinite;
+    position: relative;
+    z-index: 1;
+    text-shadow: none;
+    transition: all 0.3s ease;
+    border: none !important;
+    padding: 0;
+}
+
+#write h3:empty {
+    background: none;
+    box-shadow: none;
+    min-height: 0;
+}
+
+#write h3:hover span.md-plain {
+    background: none;
+    color: #ffffff;
+    text-shadow: 0 0 4px rgba(75, 68, 83, 0.2);
+    animation: none;
+    transition: all 0.5s ease;
+}
+
+#write h3:hover {
+    background: linear-gradient(to right, #ffc8bb, #aadddd, #ffc8bb);
+    background-size: 200% 100%;
+    animation: gradientFlowRight 3s linear infinite, glowPulse 2s ease-in-out infinite alternate;
+    box-shadow: 0 0 5px rgba(255, 160, 160, 0.5),
+        0 0 15px rgba(255, 160, 160, 0.4),
+        0 0 25px rgba(160, 200, 255, 0.4),
+        0 0 40px rgba(160, 200, 255, 0.2);
+}
+
+#write h3::after {
+    content: none !important;
+}
+
+@keyframes glowPulse {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 160, 160, 0.5),
+            0 0 15px rgba(255, 160, 160, 0.4),
+            0 0 25px rgba(160, 200, 255, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 8px rgba(255, 160, 160, 0.6),
+            0 0 20px rgba(255, 160, 160, 0.5),
+            0 0 35px rgba(160, 200, 255, 0.4),
+            0 0 50px rgba(160, 200, 255, 0.3);
+    }
+
+    100% {
+        box-shadow: 0 0 5px rgba(255, 160, 160, 0.5),
+            0 0 15px rgba(255, 160, 160, 0.4),
+            0 0 25px rgba(160, 200, 255, 0.3);
+    }
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes flowLeftToRight {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+#write h4 {
+    font-size: 1.3rem;
+    position: relative;
+    width: fit-content;
+    background: linear-gradient(135deg,
+            #FF8C66 0%,
+            #dddf3b 25%,
+            #f74d66 50%,
+            #62aaf1 75%,
+            #FF8C66 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    text-decoration: none;
+    caret-color: #FFB6C1;
+
+    --ol-title-decoration-color: #FFB6C1;
+    padding: 3px 15px;
+    animation: flowLeftToRight 6s ease-in-out infinite reverse;
+    transition: all 0.3s ease-in-out;
+}
+
+#write h4::before {
+    content: none;
+}
+
+#write h4::after {
+    content: none;
+}
+
+#write h4:hover {
+    transform: scale(1.02);
+    animation: flowLeftToRight 3s ease-in-out infinite reverse;
+}
+
+#write h4:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 6px;
+    padding: 2px;
+    background: linear-gradient(135deg,
+            #FF8C66 0%,
+            #dddf3b 25%,
+            #f74d66 50%,
+            #62aaf1 75%,
+            #FF8C66 100%);
+    background-size: 200% 100%;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: flowLeftToRight 3s ease-in-out infinite reverse;
+    z-index: -1;
+}
+
+@keyframes h5FlowFixedStutter {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 300% 50%;
+    }
+}
+
+#write h5 {
+    font-size: 1.3rem;
+    position: relative;
+    width: fit-content;
+    background: linear-gradient(135deg,
+            #FC6C85 0%,
+            #58b6a0 25%,
+            #3A8E7A 50%,
+            #FFC300 75%,
+            #FC6C85 100%);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    caret-color: #FFC300;
+
+    --ol-title-decoration-color: #FFC300;
+    padding: 1px 12.5px;
+    animation: h5FlowFixedStutter 6s ease-in-out infinite reverse;
+    transition: all 0.3s ease;
+}
+
+#write h5:hover {
+    animation: h5FlowFixedStutter 3s ease-in-out infinite reverse;
+}
+
+#write h5::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(135deg,
+            #FC6C85 0%,
+            #58b6a0 25%,
+            #3A8E7A 50%,
+            #FFC300 75%,
+            #FC6C85 100%);
+    background-size: 300% 100%;
+    transition: all 0.4s ease;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: h5FlowFixedStutter 6s ease-in-out infinite reverse;
+}
+
+#write h5:hover::after {
+    width: calc(100% - 20px);
+    opacity: 1;
+    animation: h5FlowFixedStutter 3s ease-in-out infinite reverse;
+}
+
+#write h6 {
+    font-size: 1.2rem;
+    position: relative;
+    width: fit-content;
+    background: linear-gradient(135deg,
+            #ffbe70 0%,
+            #ff8da1 15%,
+            #71d8e1 30%,
+            #27cae7 45%,
+            #27cae7 60%,
+            #71e1d8 75%,
+            #5895db 90%,
+            #ffbe70 100%);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    caret-color: #ff8da1;
+
+    --ol-title-decoration-color: #ff8da1;
+    padding: 1px 12.5px;
+    animation: h5FlowFixedStutter 6s ease-in-out infinite reverse;
+    transition: all 0.3s ease;
+}
+
+#write h1 del,
+#write h2 del,
+#write h3 del,
+#write h4 del,
+#write h5 del,
+#write h6 del {
+    text-decoration-line: line-through;
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+#write h1 u,
+#write h2 u,
+#write h3 u,
+#write h4 u,
+#write h5 u,
+#write h6 u {
+    text-decoration-line: underline;
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+#write h2 span.md-plain,
+#write h3 span.md-plain {
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+#write h2 span[style*="line-through"],
+#write h3 span[style*="line-through"] {
+    text-decoration-line: line-through;
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+#write h2 span[style*="underline"],
+#write h3 span[style*="underline"] {
+    text-decoration-line: underline;
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+#write h2 del span.md-plain,
+#write h3 del span.md-plain {
+    text-decoration-line: line-through;
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+#write h2 u span.md-plain,
+#write h3 u span.md-plain {
+    text-decoration-line: underline;
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+#write h6:hover {
+    animation: h5FlowFixedStutter 3s ease-in-out infinite reverse;
+}
+
+.md-heading .md-inline-math {
+    color: var(--text-color);
+}

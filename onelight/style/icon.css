@@ -1,0 +1,123 @@
+/* 按钮字体 */
+.outline-expander:before,
+.fa-caret-down:before,
+.fa-caret-right:before,
+li[data-group="search"][data-key="search-default"]>a[role="menuitem"]::after,
+.context-menu .state-on:before {
+    font-family: codicon;
+}
+
+/* 大纲折叠按钮 */
+
+.outline-expander {
+    padding-right: 4px;
+    padding-left: 0;
+}
+
+.outline-expander:before {
+    content: "\eab6";
+    font-size: unset;
+}
+
+.outline-expander:hover:before {
+    content: "\eab4";
+}
+
+.outline-item-open>.outline-item>.outline-expander:before {
+    content: "\eab4";
+}
+
+
+/* 文件树列表按钮 */
+
+.file-node-open-state {
+    padding-right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fa-caret-down:before {
+    content: "\eb6e"
+}
+
+.fa-caret-right:before {
+    content: "\eb70"
+}
+
+.file-node-expanded>.file-node-content .fa-caret-down {
+    margin-left: 0;
+}
+
+li[data-group="search"][data-key="search-default"]>a[role="menuitem"]::after {
+    content: '\eb01';
+    margin-left: 6px;
+    vertical-align: middle;
+    font-size: 1rem
+}
+
+/* 右键插入菜单 */
+.context-menu .state-on:before {
+    content: '\eab2';
+    vertical-align: middle;
+}
+
+.context-menu a[role="menuitem"][data-insert],
+.context-menu a[role="menuitem"][data-style] {
+    position: relative;
+    padding-left: 30px;
+}
+
+.context-menu a[role="menuitem"][data-insert]::before,
+.context-menu a[role="menuitem"][data-style]::before {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font: 11pt 'codicon';
+    line-height: 1;
+}
+
+.context-menu a[data-style="image"]::before {
+    content: '\eaea';
+}
+
+.context-menu a[data-insert="math_block"]::before {
+    content: '\eb64';
+}
+
+.context-menu a[data-insert="fences"]::before {
+    content: '\eac4';
+}
+
+.context-menu a[data-insert="table"]::before {
+    content: '\ebb7';
+}
+
+.context-menu a[data-insert="hr"]::before {
+    content: '\eaba';
+}
+
+.context-menu a[data-insert="def_link"]::before {
+    content: '\eb15';
+}
+
+.context-menu a[data-insert="def_footnote"]::before {
+    content: '\eb17';
+}
+
+.context-menu a[data-insert="toc"]::before {
+    content: '\eb3e';
+}
+
+.context-menu a[data-insert="meta_block"]::before {
+    content: '\eb0f';
+}
+
+/* 强制菜单内置元素垂直居中（修正部分项顶部对齐问题） */
+#megamenu-menu-list a[role="menuitem"]>i,
+#megamenu-menu-list a[role="menuitem"]>span {
+    display: inline-block;
+    align-self: center;
+    vertical-align: middle;
+}

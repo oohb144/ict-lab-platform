@@ -1,0 +1,453 @@
+#write h1,
+#write h2,
+#write h3,
+#write h4,
+#write h5,
+#write h6 {
+    font-weight: lighter;
+}
+
+#write h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    padding-bottom: 0.3em;
+
+    background: linear-gradient(to right, #51f8a5, #00BFFF, #51f8a5);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    caret-color: #00BFFF;
+
+    width: fit-content;
+    margin: 0 auto;
+
+    position: relative;
+
+    padding: 5px;
+
+    transition: all 0.5s ease;
+
+    animation: gradientMove 4s linear infinite;
+
+    --ol-title-decoration-color: #00BFFF;
+}
+
+#write h1:not(:focus):not(.md-focus):not(.cm-active):hover {
+    animation: textSplitReform 1s ease 150ms 1 both, gradientMove 2s linear infinite;
+}
+
+#write h2 {
+    font-size: 1.7rem;
+    margin: 1em 0;
+    border-bottom: none !important;
+    padding-bottom: 0.2em;
+    color: inherit;
+    position: relative;
+    display: block;
+    width: auto;
+
+    --ol-title-decoration-color: #FF69B4;
+}
+
+#write h2 span.md-plain {
+    display: inline-block;
+    background: linear-gradient(to right, #00BFFF, #ff89c4, #00BFFF);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    caret-color: #FF69B4;
+    animation: gradientMove 6s linear infinite;
+}
+
+#write h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    height: 2px;
+    background: linear-gradient(to right, #00BFFF, #ff89c4, #00BFFF);
+    background-size: 200% 100%;
+    border-radius: 2px;
+    transform-origin: left;
+    transform: scaleX(1);
+    transition: transform 0.3s ease-in-out;
+    animation: gradientMove 6s linear infinite;
+}
+
+#write h2:hover::after {
+    transform: scaleX(0);
+}
+
+#write h3 {
+    font-size: 1.5rem;
+    width: fit-content;
+    line-height: 1.6;
+    margin: 20px 0;
+    padding: 1px 12.5px;
+    position: relative;
+    border-radius: 4px;
+    border: none !important;
+    background: linear-gradient(to right, #055cb4, #025a86, #047389, #039393, #028d8d, #055cb4);
+    background-size: 200% 100%;
+    animation: gradientFlowRight 6s linear infinite;
+    transition: transform 0.3s ease, box-shadow 0.5s ease, background 0.8s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+
+    --ol-title-decoration-color: #BBDEFB;
+}
+
+#write h3::after {
+    content: none !important;
+}
+
+#write h3 span.md-plain {
+    display: inline-block;
+    background: linear-gradient(to right, #FFFFFF, #E8F5E9, #BBDEFB, #D1C4E9, #E1F5FE, #FFFFFF);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    caret-color: #BBDEFB;
+    animation: gradientFlowRight 4s linear infinite;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border: none !important;
+    padding: 0;
+}
+
+#write h3:empty {
+    background: none;
+    box-shadow: none;
+    min-height: 0;
+}
+
+#write h3:hover span.md-plain {
+    background: none;
+    color: #FFFFFF;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.4), 0 0 8px rgba(70, 130, 180, 0.6);
+    animation: none;
+    transition: all 0.5s ease;
+}
+
+#write h3:hover {
+    background: linear-gradient(to right, #03488d, #004466, #005566, #006666, #007777, #03488d);
+    background-size: 200% 100%;
+    animation: gradientFlowRight 3s linear infinite, glowPulse 2s ease-in-out infinite alternate;
+    box-shadow: 0 0 5px rgba(0, 102, 102, 0.4),
+        0 0 15px rgba(0, 102, 102, 0.3),
+        0 0 25px rgba(38, 198, 218, 0.3),
+        0 0 40px rgba(38, 198, 218, 0.1);
+}
+
+@keyframes glowPulse {
+    0% {
+        box-shadow: 0 0 5px rgba(0, 102, 102, 0.4),
+            0 0 15px rgba(0, 102, 102, 0.3),
+            0 0 25px rgba(38, 198, 218, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 8px rgba(0, 102, 102, 0.5),
+            0 0 20px rgba(0, 102, 102, 0.4),
+            0 0 35px rgba(38, 198, 218, 0.3),
+            0 0 50px rgba(38, 198, 218, 0.2);
+    }
+
+    100% {
+        box-shadow: 0 0 5px rgba(0, 102, 102, 0.4),
+            0 0 15px rgba(0, 102, 102, 0.3),
+            0 0 25px rgba(38, 198, 218, 0.2);
+    }
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes flowLeftToRight {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+#write h4 {
+    font-size: 1.5rem;
+    position: relative;
+    width: fit-content;
+    background: linear-gradient(135deg,
+            #8424ea 0%,
+            #5f4ad8 12.5%,
+            #2575fc 25%,
+            #6a38d8 37.5%,
+            #ec38bc 50%,
+            #6a38d8 62.5%,
+            #2575fc 75%,
+            #5f4ad8 87.5%,
+            #8424ea 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    text-decoration: none;
+    caret-color: #5a80ff;
+    --ol-title-decoration-color: #5a80ff;
+    padding: 3px 15px;
+    animation: flowLeftToRight 6s ease-in-out infinite reverse;
+    transition: all 0.3s ease-in-out;
+}
+
+#write h4::before {
+    content: none;
+}
+
+#write h4::after {
+    content: none;
+}
+
+#write h4:hover {
+    transform: scale(1.02);
+    animation: flowLeftToRight 3s ease-in-out infinite reverse;
+}
+
+#write h4:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 6px;
+    padding: 2px;
+    background: linear-gradient(135deg,
+            #8424ea 0%,
+            #5f4ad8 12.5%,
+            #2575fc 25%,
+            #6a38d8 37.5%,
+            #ec38bc 50%,
+            #6a38d8 62.5%,
+            #2575fc 75%,
+            #5f4ad8 87.5%,
+            #8424ea 100%);
+    background-size: 200% 100%;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: flowLeftToRight 3s ease-in-out infinite reverse;
+    z-index: -1;
+}
+
+@keyframes gradientFlowRight {
+    0% {
+        background-position: 200% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#write h5 {
+    font-size: 1.4rem;
+    position: relative;
+    width: fit-content;
+    background: linear-gradient(135deg,
+            #60df93 0%,
+            #3ddde6 15%,
+            #1d8ce7 30%,
+            #2c68f3 45%,
+            #5a51fa 60%,
+            #1970b7 75%,
+            #3ddde6 90%,
+            #60df93 100%);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    caret-color: #c70909;
+    --ol-title-decoration-color: #5a80ff;
+    padding: 1px 12.5px;
+    animation: h5FlowFixedStutter 6s ease-in-out infinite reverse;
+    transition: all 0.3s ease;
+}
+
+#write h5:hover {
+    animation: h5FlowFixedStutter 3s ease-in-out infinite reverse;
+}
+
+#write h5::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(135deg,
+            #60df93 0%,
+            #3ddde6 15%,
+            #1d8ce7 30%,
+            #2c68f3 45%,
+            #5a51fa 60%,
+            #1970b7 75%,
+            #3ddde6 90%,
+            #60df93 100%);
+    background-size: 300% 100%;
+    transition: all 0.4s ease;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: h5FlowFixedStutter 6s ease-in-out infinite reverse;
+}
+
+#write h5:hover::after {
+    width: calc(100% - 20px);
+    opacity: 1;
+    animation: h5FlowFixedStutter 3s ease-in-out infinite reverse;
+}
+
+#write h6 {
+    font-size: 1.2rem;
+    position: relative;
+    width: fit-content;
+    background: linear-gradient(135deg,
+            #2faed4 0%,
+            #1350c0 15%,
+            #6c4fec 30%,
+            #7b25eb 45%,
+            #cf61fa 60%,
+            #6c4fec 75%,
+            #1350c0 90%,
+            #2faed4 100%);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    caret-color: #c70909;
+    --ol-title-decoration-color: #5a80ff;
+    padding: 1px 12.5px;
+    animation: h5FlowFixedStutter 6s ease-in-out infinite reverse;
+    transition: all 0.3s ease;
+}
+
+#write h6:hover {
+    animation: h5FlowFixedStutter 3s ease-in-out infinite reverse;
+}
+
+#write h1 del,
+#write h2 del,
+#write h3 del,
+#write h4 del,
+#write h5 del,
+#write h6 del {
+    text-decoration-line: line-through;
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+#write h1 u,
+#write h2 u,
+#write h3 u,
+#write h4 u,
+#write h5 u,
+#write h6 u {
+    text-decoration-line: underline;
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+#write h2 span.md-plain,
+#write h3 span.md-plain {
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+#write h2 span[style*="line-through"],
+#write h3 span[style*="line-through"] {
+    text-decoration-line: line-through;
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+#write h2 span[style*="underline"],
+#write h3 span[style*="underline"] {
+    text-decoration-line: underline;
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+#write h2 del span.md-plain,
+#write h3 del span.md-plain {
+    text-decoration-line: line-through;
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+#write h2 u span.md-plain,
+#write h3 u span.md-plain {
+    text-decoration-line: underline;
+    text-decoration-color: var(--ol-title-decoration-color);
+}
+
+@keyframes h5FlowFixedStutter {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 300% 50%;
+    }
+}
+
+@keyframes textSplitReform {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    20% {
+        transform: scale(1.08) rotate(2deg);
+        opacity: 0.7;
+    }
+
+    40% {
+        transform: scale(0.92) rotate(-2deg);
+        letter-spacing: 3px;
+        opacity: 0.85;
+    }
+
+    60% {
+        transform: scale(1.03) rotate(1deg);
+        letter-spacing: normal;
+        opacity: 1;
+    }
+
+    80% {
+        transform: scale(0.97) rotate(-0.5deg);
+        opacity: 0.95;
+    }
+
+    100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+.md-heading .md-inline-math {
+    color: var(--text-color);
+}

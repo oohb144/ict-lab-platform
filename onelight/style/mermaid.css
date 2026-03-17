@@ -1,0 +1,22 @@
+:root {
+    --stroke: var(--theme-color);
+    --fill: var(--text-color);
+}
+
+.md-diagram .md-diagram-panel {
+    background: var(--theme-light-color);
+}
+
+.md-diagram-panel.md-fences-adv-panel {
+    background: var(--theme-light-color);
+    fill: var(--text-color) !important;
+}
+
+pre.md-fences.md-end-block.md-fences-with-lineno.md-diagram.md-fences-advanced.ty-contain-cm[lang='mermaid'] {
+    background: transparent !important;
+}
+
+/* 代码区 */
+pre.md-fences.md-end-block.md-fences-with-lineno.md-diagram.md-fences-advanced.ty-contain-cm.modeLoaded.md-focus[lang='mermaid'] {
+    background: var(--code-bg-color) !important;
+}
