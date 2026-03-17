@@ -308,6 +308,12 @@ body {
     border-radius: 0;
 }
 
+/* atom-one-dark sets its own background on .hljs — keep our pre bg instead */
+.markdown-body pre > code.hljs {
+    background: transparent;
+    padding: 0;
+}
+
 /* syntax-highlight token colours (rehype-highlight / highlight.js) */
 .markdown-body .hljs-keyword,
 .markdown-body .hljs-selector-tag {
