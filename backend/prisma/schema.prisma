@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  studentId String   @unique @map("student_id")
+  name      String
+  password  String
+  college   String   @default("")
+  grade     String   @default("")
+  phone     String   @default("")
+  role      String   @default("student") // student | admin
+  status    String   @default("pending") // pending | approved
+  createdAt DateTime @default(now()) @map("created_at")
+
+  borrows   Borrow[]
+  posts     Post[]
+  replies   Reply[]
+  resources Resource[]
+  tutorials Tutorial[]
+
+  @@map("users")
+}
+
+model Equipment {
+  id        Int      @id @default(autoincrement())
+  name      String
+  category  String   @default("")
+  total     Int      @default(0)
+  available Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  borrows Borrow[]
+
+  @@map("equipment")
+}
+
+model Borrow {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  equipmentId Int      @map("equipment_id")
+  count       Int      @default(1)
+  status      String   @default("PENDING") // PENDING | APPROVED | REJECTED | RETURNED
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  equipment Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+
+  @@map("borrows")
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  authorId  Int      @map("author_id")
+  title     String   @default("")
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  author  User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  replies Reply[]
+
+  @@map("posts")
+}
+
+model Reply {
+  id        Int      @id @default(autoincrement())
+  postId    Int      @map("post_id")
+  authorId  Int      @map("author_id")
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@map("replies")
+}
+
+model Resource {
+  id          Int      @id @default(autoincrement())
+  name        String
+  type        String   @default("other")
+  description String   @default("")
+  link        String   @default("")
+  fileUrl     String   @default("") @map("file_url")
+  uploaderId  Int      @map("uploader_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  uploader User @relation(fields: [uploaderId], references: [id], onDelete: Cascade)
+
+  @@map("resources")
+}
+
+model SiteContent {
+  id            Int    @id @default(1)
+  introTitle    String @default("") @map("intro_title")
+  introSubtitle String @default("") @map("intro_subtitle")
+  introBox1     String @default("") @map("intro_box1")
+  introBox2     String @default("") @map("intro_box2")
+  introRules    String @default("") @map("intro_rules")
+
+  @@map("site_content")
+}
+
+model Tutorial {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  authorId  Int      @map("author_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@map("tutorials")
+}

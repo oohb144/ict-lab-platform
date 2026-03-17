@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find \"G:\\\\相关文件_1\\\\实验室\\\\ict-lab-platform\" -name \".env*\" -o -name \"*.env\" 2>/dev/null | head -10)",
+      "Bash(cd \"G:\\\\相关文件_1\\\\实验室\\\\ict-lab-platform\\\\frontend\" && npm install react-markdown)",
+      "Bash(cd \"G:\\\\相关文件_1\\\\实验室\\\\ict-lab-platform\\\\backend\" && npx prisma migrate dev --name add-tutorial)",
+      "Bash(cd \"G:\\\\相关文件_1\\\\实验室\\\\ict-lab-platform\\\\backend\" && npx prisma db push)",
+      "Bash(cd \"G:\\\\相关文件_1\\\\实验室\\\\ict-lab-platform\\\\frontend\" && npm install rehype-raw)"
+    ]
+  }
+}
