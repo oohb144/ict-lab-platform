@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")      // 运行时用（Pooler 连接池）
+  directUrl = env("DIRECT_URL")        // db push / migrate 用（直连）
 }
 
 model User {
