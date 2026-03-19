@@ -19,6 +19,8 @@ app.use(cors({
   origin: [
     'http://localhost:5173',
     'https://ict-lab-platform.vercel.app',
+    'https://www.oohb144.icu',
+    'https://oohb144.icu',
   ],
   credentials: true,
 }));
