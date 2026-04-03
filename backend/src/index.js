@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
 import config from "./config.js";
 import authRoutes from "./routes/auth.js";
 import equipmentRoutes from "./routes/equipment.js";
@@ -12,8 +13,12 @@ import adminRoutes from "./routes/admin.js";
 import tutorialRoutes from "./routes/tutorials.js";
 import checkinsRoutes from "./routes/checkins.js";
 import notificationsRoutes from "./routes/notifications.js";
+import articlesRoutes from "./routes/articles.js";
 
 const app = express();
+
+// 静态文件服务：/uploads/ 目录供用户下载
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 app.use(cors({
   origin: [
@@ -41,6 +46,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/tutorials", tutorialRoutes);
 app.use("/api/checkins", checkinsRoutes);
 app.use("/api/notifications", notificationsRoutes);
+app.use("/api/articles", articlesRoutes);
 
 // 全局错误处理
 app.use((err, req, res, next) => {

@@ -1,53 +1,57 @@
 import { Router } from 'express';
 import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
 import auth from '../middleware/auth.js';
-import { uploadToGitee } from '../utils/gitee.js';
 
 const router = Router();
-const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 50 * 1024 * 1024 } });
 
-// 文件上传到 Gitee 仓库
-router.post('/', auth, upload.single('file'), async (req, res) => {
-  try {
-    if (!req.file) return res.status(400).json({ message: '请选择文件' });
+// 确保 uploads 目录存在
+const uploadsDir = path.join(process.cwd(), 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
-    const url = await uploadToGitee(req.file.buffer, req.file.originalname);
-    res.json({ url, fileName: req.file.originalname });
-  } catch (err) {
-    res.status(500).json({ message: '上传失败', error: err.message });
-  }
+// 磁盘存储：文件保存到 /uploads/
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadsDir),
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    const name = `${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`;
+    cb(null, name);
+  },
 });
 
-// 文件代理：解决 Gitee raw 链接被 iframe 拦截的问题
-router.get('/proxy', async (req, res) => {
+const upload = multer({
+  storage,
+  limits: { fileSize: 50 * 1024 * 1024 }, // 50MB
+});
+
+// POST /api/upload - 上传文件到服务器
+router.post('/', auth, upload.single('file'), (req, res) => {
+  if (!req.file) return res.status(400).json({ message: '请选择文件' });
+
+  // 返回可访问的 URL 路径
+  const fileUrl = `/uploads/${req.file.filename}`;
+  res.json({ url: fileUrl, fileName: req.file.originalname });
+});
+
+// DELETE /api/upload - 删除文件
+router.delete('/', auth, (req, res) => {
+  const { filename } = req.body;
+  if (!filename) return res.status(400).json({ message: '缺少文件名' });
+
+  // 安全校验：只允许删除 uploads 目录内的文件，防止路径穿越
+  const filePath = path.resolve(uploadsDir, path.basename(filename));
+  if (!filePath.startsWith(uploadsDir)) {
+    return res.status(400).json({ message: '非法路径' });
+  }
+
   try {
-    const { url } = req.query;
-    if (!url) return res.status(400).json({ message: '缺少 url 参数' });
-
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`远程文件获取失败: ${response.status}`);
-
-    // 根据文件扩展名修正 content-type（Gitee 有时返回错误的类型）
-    let contentType = response.headers.get('content-type') || 'application/octet-stream';
-    const ext = url.split('?')[0].split('.').pop().toLowerCase();
-    const mimeMap = {
-      pdf: 'application/pdf',
-      png: 'image/png',
-      jpg: 'image/jpeg',
-      jpeg: 'image/jpeg',
-      gif: 'image/gif',
-      svg: 'image/svg+xml',
-      webp: 'image/webp',
-    };
-    if (mimeMap[ext]) contentType = mimeMap[ext];
-
-    res.setHeader('Content-Type', contentType);
-    res.setHeader('Content-Disposition', 'inline');
-
-    const buffer = Buffer.from(await response.arrayBuffer());
-    res.send(buffer);
-  } catch (err) {
-    res.status(500).json({ message: '文件代理失败', error: err.message });
+    if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+    res.json({ message: '删除成功' });
+  } catch {
+    res.status(500).json({ message: '删除失败' });
   }
 });
 

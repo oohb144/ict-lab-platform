@@ -26,6 +26,7 @@ model User {
   resources Resource[]
   tutorials Tutorial[]
   checkins  CheckIn[]
+  articles  Article[]
 
   @@map("users")
 }
@@ -142,4 +143,23 @@ model CheckIn {
 
   @@unique([userId, date])
   @@map("checkins")
+}
+
+model Article {
+  id         Int      @id @default(autoincrement())
+  title      String
+  slug       String   @unique
+  content    String
+  excerpt    String?
+  coverImage String?  @map("cover_image")
+  category   String
+  tags       String?
+  published  Boolean  @default(false)
+  viewCount  Int      @default(0) @map("view_count")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  authorId   Int      @map("author_id")
+  author     User     @relation(fields: [authorId], references: [id])
+
+  @@map("articles")
 }

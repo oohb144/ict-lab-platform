@@ -10,22 +10,22 @@ import {
 import useAuthStore from '../store/useAuthStore';
 
 const userMenuItems = [
-  { key: '/', icon: <HomeOutlined />, label: '实验室介绍' },
-  { key: '/office', icon: <EnvironmentOutlined />, label: '办公室规划' },
-  { key: '/equipment', icon: <ToolOutlined />, label: '器材借阅大厅' },
-  { key: '/resources', icon: <FolderOpenOutlined />, label: '共享资料' },
-  { key: '/forum', icon: <CommentOutlined />, label: '讨论区' },
-  { key: '/tutorials', icon: <ReadOutlined />, label: '教程笔记' },
+  { key: '/lab', icon: <HomeOutlined />, label: '实验室介绍' },
+  { key: '/lab/office', icon: <EnvironmentOutlined />, label: '办公室规划' },
+  { key: '/lab/equipment', icon: <ToolOutlined />, label: '器材借阅大厅' },
+  { key: '/lab/resources', icon: <FolderOpenOutlined />, label: '共享资料' },
+  { key: '/lab/forum', icon: <CommentOutlined />, label: '讨论区' },
+  { key: '/lab/tutorials', icon: <ReadOutlined />, label: '教程笔记' },
 ];
 
 const adminMenuItems = [
   { type: 'divider' },
   { key: 'admin-group', label: '管理员专区', type: 'group', children: [
-    { key: '/admin/users', icon: <TeamOutlined />, label: '人员管理' },
-    { key: '/admin/inventory', icon: <InboxOutlined />, label: '器材库存' },
-    { key: '/admin/borrows', icon: <AuditOutlined />, label: '借阅审批' },
-    { key: '/admin/content', icon: <EditOutlined />, label: '内容编辑' },
-    { key: '/admin/resources', icon: <FileTextOutlined />, label: '资料管理' },
+    { key: '/lab/admin/users', icon: <TeamOutlined />, label: '人员管理' },
+    { key: '/lab/admin/inventory', icon: <InboxOutlined />, label: '器材库存' },
+    { key: '/lab/admin/borrows', icon: <AuditOutlined />, label: '借阅审批' },
+    { key: '/lab/admin/content', icon: <EditOutlined />, label: '内容编辑' },
+    { key: '/lab/admin/resources', icon: <FileTextOutlined />, label: '资料管理' },
   ]},
 ];
 
@@ -163,6 +163,13 @@ export default function Layout() {
             }}>
               {user?.studentId} ({user?.name})
             </div>
+            <Button
+              type="text"
+              onClick={() => navigate('/')} block
+              style={{ color: '#64748b', marginBottom: 4 }}
+            >
+              ← 返回门户
+            </Button>
             <Button
               type="text" icon={<LogoutOutlined />}
               onClick={handleLogout} block

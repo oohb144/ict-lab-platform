@@ -16,7 +16,7 @@ export default function Login() {
       const { data } = await loginApi({ studentId: values.studentId, password: values.password });
       setAuth(data.user, data.token);
       message.success('欢迎回来，' + data.user.name);
-      navigate('/');
+      navigate('/lab');
     } catch (err) {
       message.error(err.response?.data?.message || '登录失败');
     } finally {
